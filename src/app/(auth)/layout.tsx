@@ -12,13 +12,17 @@ const inter = Inter({ subsets: ["latin"], display: "swap" })
 
 export default function RootLayout({
   children,
+  authModal,
 }: {
   children: React.ReactNode
+  authModal: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* @ts-expect-error Server Component */}
         <Navbar />
+        {authModal}
         <div className="w-full flex justify-center items-center min-h-screen">
           {children}
         </div>
