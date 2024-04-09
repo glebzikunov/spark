@@ -1,9 +1,9 @@
+import Navbar from "@/components/Navbar"
 import LeftSidebar from "@/components/LeftSidebar"
 import RightSidebar from "@/components/RightSidebar"
-import Navbar from "@/components/Navbar"
-import { cn } from "@/lib/utils"
-import "@/styles/globals.css"
 import { Inter } from "next/font/google"
+import { Toaster } from "@/components/ui/toaster"
+import "@/styles/globals.css"
 
 export const metadata = {
   title: "Spark",
@@ -31,6 +31,8 @@ export default function RootLayout({
 
           <RightSidebar />
         </main>
+
+        <Toaster />
       </body>
     </html>
   )
