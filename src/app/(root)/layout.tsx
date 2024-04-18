@@ -4,6 +4,7 @@ import RightSidebar from "@/components/RightSidebar"
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import "@/styles/globals.css"
+import Providers from "@/components/Providers"
 
 export const metadata = {
   title: "Spark",
@@ -22,21 +23,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* @ts-expect-error Server Component */}
-        <Navbar />
-        {authModal}
+        <Providers>
+          {/* @ts-expect-error Server Component */}
+          <Navbar />
+          {authModal}
 
-        <main className="flex flex-row">
-          <LeftSidebar />
+          <main className="flex flex-row">
+            <LeftSidebar />
 
-          <section className="main-container">
-            <div className="w-full max-w-3xl">{children}</div>
-          </section>
+            <section className="main-container">
+              <div className="w-full max-w-3xl">{children}</div>
+            </section>
 
-          <RightSidebar />
-        </main>
+            <RightSidebar />
+          </main>
 
-        <Toaster />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   )

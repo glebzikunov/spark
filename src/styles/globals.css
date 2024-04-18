@@ -12,11 +12,11 @@
   }
 
   .leftsidebar {
-    @apply sticky left-0 top-0 z-10 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-border pb-5 pt-20 max-md:hidden;
+    @apply sticky left-0 top-0 z-10 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-border  pt-20 max-md:hidden;
   }
 
   .leftsidebar-link {
-    @apply relative flex justify-start gap-4 rounded-lg p-4;
+    @apply relative flex justify-start gap-4 rounded-lg p-3;
   }
 
   .rightsidebar {

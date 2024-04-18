@@ -11,7 +11,7 @@ const Leftsidebar = () => {
 
   return (
     <section className="custom-scrollbar leftsidebar">
-      <div className="flex w-full flex-1 flex-col gap-6 px-6">
+      <div className="flex w-full flex-1 flex-col gap-1 px-6">
         {sidebarLinks.map((link) => {
           const isActive =
             (pathname.includes(link.route) && link.route.length > 1) ||
@@ -26,13 +26,18 @@ const Leftsidebar = () => {
               <Image
                 src={link.imgURL}
                 alt={link.label}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
               />
-              <p className="max-lg:hidden">{link.label}</p>
+              <p className="text-sm max-lg:hidden">{link.label}</p>
             </Link>
           )
         })}
+      </div>
+      <div className="px-6">
+        <p className="text-[10px] p-4 max-lg:hidden">
+          Spark, Inc. © 2024. All rights reserved.
+        </p>
       </div>
     </section>
   )
