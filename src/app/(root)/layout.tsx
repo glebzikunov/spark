@@ -32,10 +32,8 @@ export default function RootLayout({
             <LeftSidebar />
 
             <section className="main-container">
-              <div className="w-full max-w-3xl">{children}</div>
+              <div className="w-full max-w-5xl">{children}</div>
             </section>
-
-            <RightSidebar />
           </main>
 
           <Toaster />
