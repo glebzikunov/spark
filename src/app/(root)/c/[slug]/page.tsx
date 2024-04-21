@@ -69,7 +69,7 @@ const Page = async ({ params }: PageProps) => {
                 ? memberCount + " member"
                 : memberCount + " members"}
             </p>
-            <p className="text-[12px] text-[#2a3c42] md:hidden">|</p>
+            <p className="text-[12px] text-[#F97316] md:hidden">|</p>
             <p className="text-[12px] text-[#576f76] md:hidden">
               <time dateTime={community.createdAt.toDateString()}>
                 Created on {format(community.createdAt, "MMMM d, yyyy")}
