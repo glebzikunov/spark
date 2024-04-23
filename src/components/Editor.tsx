@@ -9,8 +9,9 @@ import type EditorJS from "@editorjs/editorjs"
 import { uploadFiles } from "@/lib/uploadthing"
 import { toast } from "@/hooks/use-toast"
 import { useMutation } from "@tanstack/react-query"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { usePathname, useRouter } from "next/navigation"
+import { useCustomToast } from "@/hooks/use-custom.toast"
 
 interface EditorProps {
   communityId: string
@@ -32,6 +33,7 @@ const Editor = ({ communityId }: EditorProps) => {
   const _titleRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
   const pathname = usePathname()
+  const { loginToast } = useCustomToast()
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
@@ -142,7 +144,20 @@ const Editor = ({ communityId }: EditorProps) => {
 
       return data
     },
-    onError: () => {
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast()
+        }
+
+        if (err.response?.status === 400) {
+          return toast({
+            title: "Error publishing post.",
+            description: "You need to join this community, before posting.",
+            variant: "destructive",
+          })
+        }
+      }
       return toast({
         title: "Something went wrong.",
         description: "Your post wasn't published, try again later.",
