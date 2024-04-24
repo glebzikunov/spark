@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar"
 import LeftSidebar from "@/components/LeftSidebar"
-import RightSidebar from "@/components/RightSidebar"
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import "@/styles/globals.css"
@@ -35,9 +34,8 @@ export default function RootLayout({
               <div className="w-full max-w-5xl">{children}</div>
             </section>
           </main>
-
-          <Toaster />
         </Providers>
+        <Toaster />
       </body>
     </html>
   )

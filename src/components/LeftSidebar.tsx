@@ -21,7 +21,9 @@ const Leftsidebar = () => {
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar-link ${isActive && `bg-[#eaedef]`}`}
+              className={`leftsidebar-link transition-colors hover:bg-[#eaedef] ${
+                isActive && `bg-[#eaedef]`
+              }`}
             >
               <Image
                 src={link.imgURL}

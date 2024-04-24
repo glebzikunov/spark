@@ -60,7 +60,7 @@ const Page = () => {
   })
 
   return (
-    <div className=" w-full flex items-center h-full max-w-3xl mx-auto">
+    <div className=" w-full flex items-center h-full max-w-5xl mx-auto">
       <div className="relative bg-[#eaedef] w-full h-fit p-4 rounded-lg space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-semibold">Create a community</h1>

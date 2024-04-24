@@ -11,7 +11,7 @@ export default function Home() {
 
         Create (post or community)
       */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x4 py-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x4 pb-6">
         {/* feed */}
 
         {/* community info */}

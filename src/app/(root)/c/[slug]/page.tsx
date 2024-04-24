@@ -1,4 +1,5 @@
 import MiniCreatePost from "@/components/MiniCreatePost"
+import PostFeed from "@/components/PostFeed"
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle"
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config"
 import { getAuthSession } from "@/lib/auth"
@@ -88,6 +89,7 @@ const Page = async ({ params }: PageProps) => {
           ) : null}
         </div>
       </div>
+      <PostFeed initialPosts={community.posts} communityName={community.name} />
     </>
   )
 }

@@ -2,6 +2,7 @@ import { getAuthSession } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { format } from "date-fns"
+import "../../../../styles/globals.css"
 
 export default async function RootLayout({
   children,
@@ -35,7 +36,7 @@ export default async function RootLayout({
   })
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-4 md:gap-x-4 py-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-4 md:gap-x-4 pb-6">
       <div className="flex flex-col col-span-2 space-y-6">{children}</div>
       <div className="hidden xl:block overflow-hidden h-fit rounded-lg border border-border">
         <div className="bg-[#f9fafa] px-3 py-3">
