@@ -80,7 +80,7 @@ const PostVoteClient = ({
     <div className="flex gap-1 sm:gap-2 rounded-sm bg-[#EAEDEF]">
       <Button
         onClick={() => vote("LIKE")}
-        className="px-1 sm:px-3 rounded-sm"
+        className="px-1 sm:px-3 rounded-sm hover:bg-[#dcdcdd]"
         size="sm"
         variant="ghost"
         aria-label="like"
@@ -96,7 +96,7 @@ const PostVoteClient = ({
       </p>
       <Button
         onClick={() => vote("DISLIKE")}
-        className="px-1 sm:px-3 rounded-sm"
+        className="px-1 sm:px-3 rounded-sm hover:bg-[#dcdcdd]"
         size="sm"
         variant="ghost"
         aria-label="dislike"
