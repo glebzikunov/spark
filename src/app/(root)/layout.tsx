@@ -4,6 +4,8 @@ import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import "@/styles/globals.css"
 import Providers from "@/components/Providers"
+import RightSidebar from "@/components/RightSidebar"
+import Bottombar from "@/components/Bottombar"
 
 export const metadata = {
   title: "Spark",
@@ -33,7 +35,11 @@ export default function RootLayout({
             <section className="main-container">
               <div className="w-full max-w-5xl">{children}</div>
             </section>
+
+            <RightSidebar />
           </main>
+
+          <Bottombar />
         </Providers>
         <Toaster />
       </body>

@@ -61,6 +61,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      screens: {
+        xs: "400px",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
