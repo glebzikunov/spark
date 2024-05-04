@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { getAuthSession } from "@/lib/auth"
+import ThemeSwitcher from "./ThemeSwitcher"
 import DropdownNav from "./DropdownNav"
 
 const Navbar = async () => {
@@ -22,11 +23,17 @@ const Navbar = async () => {
         {/* Search bar */}
 
         {session?.user ? (
-          <DropdownNav user={session.user} />
+          <div className="flex gap-3">
+            <ThemeSwitcher />
+            <DropdownNav user={session.user} />
+          </div>
         ) : (
-          <Button asChild>
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
+          <div className="flex gap-3">
+            <ThemeSwitcher />
+            <Button asChild>
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+          </div>
         )}
       </div>
     </nav>

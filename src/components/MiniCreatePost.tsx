@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { usePathname, useRouter } from "next/navigation"
-import Image from "next/image"
+import { Plus } from "lucide-react"
 
 const MiniCreatePost = () => {
   const router = useRouter()
@@ -12,14 +12,9 @@ const MiniCreatePost = () => {
     <Button
       onClick={() => router.push(pathname + "/submit")}
       variant="outline"
-      className="flex gap-2 rounded-full"
+      className="flex gap-2 rounded-full dark:bg-[#1f1f1f] dark:border-[#313131] dark:hover:bg-[#303030]"
     >
-      <Image
-        src="/assets/create.svg"
-        alt="Create post button"
-        width={20}
-        height={20}
-      />
+      <Plus strokeWidth={1} />
       Create a post
     </Button>
   )

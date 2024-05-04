@@ -193,7 +193,7 @@ const Editor = ({ communityId }: EditorProps) => {
   const { ref: titleRef, ...rest } = register("title")
 
   return (
-    <div className="w-full p-4 bg-[#f9fafa] rounded-lg border border-border">
+    <div className="w-full p-4 bg-[#f9fafa] dark:bg-[#262626] rounded-lg border border-border dark:border-[#313131]">
       <form
         id="community-post-form"
         className="w-fit"

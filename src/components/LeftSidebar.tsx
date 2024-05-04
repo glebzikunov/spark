@@ -21,23 +21,18 @@ const Leftsidebar = () => {
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar-link transition-colors hover:bg-[#eaedef] ${
-                isActive && `bg-[#eaedef]`
+              className={`leftsidebar-link transition-colors hover:bg-[#eaedef] dark:hover:bg-[#303030] ${
+                isActive && `bg-[#eaedef] dark:bg-[#303030]`
               }`}
             >
-              <Image
-                src={link.imgURL}
-                alt={link.label}
-                width={20}
-                height={20}
-              />
+              {link.icon}
               <p className="text-sm max-lg:hidden">{link.label}</p>
             </Link>
           )
         })}
       </div>
       <div className="px-6">
-        <p className="text-[10px] p-4 max-lg:hidden">
+        <p className="text-[10px] p-4 max-lg:hidden dark:text-[#838383]">
           Spark, Inc. © 2024. All rights reserved.
         </p>
       </div>

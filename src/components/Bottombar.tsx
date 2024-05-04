@@ -20,16 +20,11 @@ function Bottombar() {
             <Link
               href={link.route}
               key={link.label}
-              className={`bottombar_link transition-colors hover:bg-[#eaedef] ${
-                isActive && `bg-[#eaedef]`
+              className={`bottombar_link transition-colors hover:bg-[#eaedef] dark:hover:bg-[#303030] ${
+                isActive && `bg-[#eaedef] dark:bg-[#303030]`
               }`}
             >
-              <Image
-                src={link.imgURL}
-                alt={link.label}
-                width={24}
-                height={24}
-              />
+              {link.icon}
               <p className="text-subtle-medium text-light-1 max-sm:hidden">
                 {link.label.split(/\s+/)[0]}
               </p>

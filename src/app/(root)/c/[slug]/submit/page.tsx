@@ -22,16 +22,14 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <div className="flex flex-col items-start gap-6">
-      <div className="w-full border-b border-border pb-5">
+      <div className="w-full border-b border-border dark:border-[#313131] pb-5">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold leading-6">Create post</h2>
-          <div className="flex items-center gap-2 xl:hidden bg-[#EAEDEF] px-4 py-2 rounded-full">
-            <div className="flex items-center justify-center w-[24px] h-[24px] rounded-full bg-black text-white">
+          <div className="flex items-center gap-2 xl:hidden bg-[#EAEDEF] dark:bg-[#303030] px-4 py-2 rounded-full">
+            <div className="flex items-center justify-center w-[24px] h-[24px] rounded-full bg-black dark:bg-[#464646] text-white dark:text-[#838383]">
               c/
             </div>
-            <p className="truncate text-sm font-semibold text-black">
-              c/{params.slug}
-            </p>
+            <p className="truncate text-sm font-semibold">c/{params.slug}</p>
           </div>
         </div>
       </div>

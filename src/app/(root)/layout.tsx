@@ -2,17 +2,17 @@ import Navbar from "@/components/Navbar"
 import LeftSidebar from "@/components/LeftSidebar"
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
-import "@/styles/globals.css"
 import Providers from "@/components/Providers"
-import RightSidebar from "@/components/RightSidebar"
 import Bottombar from "@/components/Bottombar"
+import "@/styles/globals.css"
+import { ThemeProvider } from "@/components/ThemeProvider"
 
 export const metadata = {
   title: "Spark",
   description: "Spark micro-blog web app built with Next.js and TypeScript.",
 }
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"], display: "swap" })
 
 export default function RootLayout({
   children,
@@ -24,24 +24,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          {/* @ts-expect-error Server Component */}
-          <Navbar />
-          {authModal}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            {/* @ts-expect-error Server Component */}
+            <Navbar />
+            {authModal}
 
-          <main className="flex flex-row">
-            <LeftSidebar />
+            <main className="flex flex-row">
+              <LeftSidebar />
 
-            <section className="main-container">
-              <div className="w-full max-w-5xl">{children}</div>
-            </section>
+              <section className="main-container">
+                <div className="w-full max-w-5xl">{children}</div>
+              </section>
+            </main>
 
-            <RightSidebar />
-          </main>
-
-          <Bottombar />
-        </Providers>
-        <Toaster />
+            <Bottombar />
+          </Providers>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )

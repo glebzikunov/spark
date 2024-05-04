@@ -31,7 +31,7 @@ const Post = ({
   const pRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="rounded-lg border border-border shadow transition-colors hover:bg-[#f9fafa] ">
+    <div className="rounded-lg border border-border dark:border-[#313131] shadow transition-colors hover:bg-[#f9fafa] dark:hover:bg-[#262626]">
       <div className="px-4 pt-4 sm:px-6 sm:pt-6 pb-0 flex">
         <div className="w-0 flex-1">
           <div className="flex items-center gap-2">
@@ -46,17 +46,19 @@ const Post = ({
               {communityName ? (
                 <div className="flex flex-col">
                   <a
-                    className="text-[#2A3C42] font-bold hover:underline hover:underline-offset-2"
+                    className="text-[#2A3C42] dark:text-[#5A5A5A] font-bold hover:underline hover:underline-offset-2"
                     href={`/c/${communityName}`}
                   >
                     c/{communityName}
                   </a>
-                  <span className="text-[#576F76]">{post.author.name}</span>
+                  <span className="text-[#576F76] dark:text-[#838383]">
+                    {post.author.name}
+                  </span>
                 </div>
               ) : null}
 
               <span className="text-[#F97316] font-bold px-2">●</span>
-              <span className="font-medium text-[#576F76]">
+              <span className="font-medium text-[#576F76] dark:text-[#838383]">
                 {formatTimeToNow(new Date(post.createdAt))}
               </span>
             </div>
@@ -73,7 +75,7 @@ const Post = ({
           >
             <EditorOutput content={post.content} />
             {pRef.current?.clientHeight === 160 ? (
-              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent" />
+              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent dark:from-[#1F1F1F]" />
             ) : null}
           </div>
         </div>

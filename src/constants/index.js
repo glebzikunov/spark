@@ -1,26 +1,28 @@
+import { Home, Plus, Bell, Bookmark, Users } from "lucide-react"
+
 export const sidebarLinks = [
   {
-    imgURL: "/assets/home.svg",
+    icon: <Home strokeWidth={1} className="dark:stroke-white" />,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/assets/create.svg",
+    icon: <Plus strokeWidth={1} className="dark:stroke-white" />,
     route: "/create",
     label: "Create",
   },
   {
-    imgURL: "/assets/activity.svg",
+    icon: <Bell strokeWidth={1} className="dark:stroke-white" />,
     route: "/activity",
     label: "Activity",
   },
   {
-    imgURL: "/assets/bookmark.svg",
+    icon: <Bookmark strokeWidth={1} className="dark:stroke-white" />,
     route: "/bookmarks",
     label: "Bookmarks",
   },
   {
-    imgURL: "/assets/community.svg",
+    icon: <Users strokeWidth={1} className="dark:stroke-white" />,
     route: "/communities",
     label: "Communities",
   },

@@ -10,7 +10,6 @@ import {
 } from "./ui/dropdown-menu"
 import UserAvatar from "./UserAvatar"
 import Link from "next/link"
-import ThemeSwitcher from "./ThemeSwitcher"
 import { signOut } from "next-auth/react"
 
 interface DropdownNavProps {
@@ -28,7 +27,7 @@ const DropdownNav = ({ user }: DropdownNavProps) => {
           }}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-background" align="end">
+      <DropdownMenuContent className="dark:bg-[#303030]" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
@@ -37,17 +36,16 @@ const DropdownNav = ({ user }: DropdownNavProps) => {
             )}
           </div>
         </div>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
+        <DropdownMenuSeparator className="dark:bg-[#838383]" />
+        <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/">Feed</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/c/create">Create community</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/settings">Settings</Link>
         </DropdownMenuItem>
-        <ThemeSwitcher />
         <DropdownMenuItem
           onSelect={(event) => {
             event.preventDefault()

@@ -68,13 +68,13 @@ const Page = async ({ params }: PageProps) => {
             c/{community.name}
           </h1>
           <div className="flex gap-1">
-            <p className="text-[12px] text-[#576f76] xl:hidden">
+            <p className="text-[12px] text-[#576f76] dark:text-[#838383] xl:hidden">
               {memberCount === 1
                 ? memberCount + " member"
                 : memberCount + " members"}
             </p>
             <p className="text-[12px] text-[#F97316] xl:hidden">|</p>
-            <p className="text-[12px] text-[#576f76] xl:hidden">
+            <p className="text-[12px] text-[#576f76] dark:text-[#838383] xl:hidden">
               <time dateTime={community.createdAt.toDateString()}>
                 Created on {format(community.createdAt, "MMMM d, yyyy")}
               </time>

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar"
 import { Toaster } from "@/components/ui/toaster"
 import { Inter } from "next/font/google"
 import "../../styles/globals.css"
+import { ThemeProvider } from "@/components/ThemeProvider"
 
 export const metadata = {
   title: "Spark",
@@ -20,14 +21,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* @ts-expect-error Server Component */}
-        <Navbar />
-        {authModal}
-        <div className="w-full flex justify-center items-center min-h-screen">
-          {children}
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* @ts-expect-error Server Component */}
+          <Navbar />
+          {authModal}
+          <div className="w-full flex justify-center items-center min-h-screen dark:bg-[#1F1F1F]">
+            {children}
+          </div>
 
-        <Toaster />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )
