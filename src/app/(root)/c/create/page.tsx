@@ -78,7 +78,7 @@ const Page = () => {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="pl-6"
+              className="pl-6 dark:bg-[#303030]"
               placeholder=""
             />
           </div>

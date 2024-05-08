@@ -8,7 +8,7 @@
   }
 
   .navbar {
-    @apply fixed top-0 z-20 flex w-full items-center justify-between gap-2 border-b dark:border-[#ffffff33] bg-background dark:bg-[#262626] border-b-border h-fit px-6 py-2;
+    @apply fixed top-0 z-20 flex w-full items-center justify-between gap-3 border-b dark:border-[#ffffff33] bg-background dark:bg-[#262626] border-b-border h-fit px-6 py-2;
   }
 
   .leftsidebar {

@@ -9,12 +9,13 @@ import {
   CommandItem,
   CommandList,
 } from "./ui/command"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import axios from "axios"
 import { Community, Prisma } from "@prisma/client"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Users } from "lucide-react"
 import debounce from "lodash.debounce"
+import { useOnClickOutside } from "@/hooks/use-on-click-outside"
 
 const SearchBar = () => {
   const [input, setInput] = useState<string>("")
@@ -44,9 +45,20 @@ const SearchBar = () => {
   }, [])
 
   const router = useRouter()
+  const commandRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+
+  useOnClickOutside(commandRef, () => {
+    setInput("")
+  })
+
+  useEffect(() => {
+    setInput("")
+  }, [pathname])
 
   return (
     <Command
+      ref={commandRef}
       className={`relative rounded-lg ${
         input.length > 0 && `rounded-t-lg rounded-b-none`
       } bg-[#eaedef] dark:bg-[#303030] max-w-lg z-50 overflow-visible`}
