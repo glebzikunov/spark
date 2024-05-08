@@ -36,7 +36,7 @@ const DropdownNav = ({ user }: DropdownNavProps) => {
             )}
           </div>
         </div>
-        <DropdownMenuSeparator className="dark:bg-[#838383]" />
+        <DropdownMenuSeparator className="dark:bg-[#ffffff33]" />
         <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/">Feed</Link>
         </DropdownMenuItem>

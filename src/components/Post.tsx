@@ -31,7 +31,7 @@ const Post = ({
   const pRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="rounded-lg border border-border dark:border-[#313131] shadow transition-colors hover:bg-[#f9fafa] dark:hover:bg-[#262626]">
+    <div className="rounded-lg border border-border dark:border-[#ffffff33] shadow transition-colors hover:bg-[#f9fafa] dark:hover:bg-[#262626]">
       <div className="px-4 pt-4 sm:px-6 sm:pt-6 pb-0 flex">
         <div className="w-0 flex-1">
           <div className="flex items-center gap-2">

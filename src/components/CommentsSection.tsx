@@ -76,7 +76,7 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
                   return (
                     <div
                       key={reply.id}
-                      className="ml-3 py-2 pl-4 border-l-2 border-border dark:border-[#313131]"
+                      className="ml-3 py-2 pl-4 border-l-2 border-border dark:border-[#ffffff33]"
                     >
                       <PostComment
                         /* @ts-ignore */

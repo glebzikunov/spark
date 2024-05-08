@@ -61,11 +61,11 @@ const Page = () => {
 
   return (
     <div className=" w-full flex items-center h-full max-w-5xl mx-auto">
-      <div className="relative bg-[#eaedef] dark:bg-[#303030] w-full h-fit p-4 rounded-lg space-y-6">
+      <div className="relative bg-[#eaedef] dark:bg-[#262626] w-full h-fit p-4 rounded-lg space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-semibold">Create a community</h1>
         </div>
-        <hr className="bg-[#303030] dark:bg-[#838383] h-[2px]" />
+        <hr className="bg-[#303030] dark:bg-[#ffffff33] h-[2px]" />
         <div className="flex flex-col">
           <p className="text-lg font-medium">Name</p>
           <p className="text-xs text-[#576f76] dark:text-[#838383] pb-2">
