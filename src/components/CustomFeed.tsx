@@ -19,7 +19,7 @@ const CustomFeed = async () => {
     where: {
       community: {
         name: {
-          in: followedCommunities.map(({ community }) => community.id),
+          in: followedCommunities.map(({ community }) => community.name),
         },
       },
     },

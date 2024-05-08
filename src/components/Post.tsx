@@ -52,7 +52,7 @@ const Post = ({
                     c/{communityName}
                   </a>
                   <span className="text-[#576F76] dark:text-[#838383]">
-                    {post.author.username}
+                    u/{post.author.username}
                   </span>
                 </div>
               ) : null}

@@ -1,5 +1,4 @@
 import { Post, Vote, VoteType } from "@prisma/client"
-import { r } from "@upstash/redis/zmscore-07021e27"
 import { getServerSession } from "next-auth"
 import { notFound } from "next/navigation"
 import PostVoteClient from "./PostVoteClient"

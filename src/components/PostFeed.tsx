@@ -8,6 +8,7 @@ import axios from "axios"
 import { useSession } from "next-auth/react"
 import { useEffect, useRef } from "react"
 import Post from "./Post"
+import { Loader2 } from "lucide-react"
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[]
@@ -76,17 +77,24 @@ const PostFeed = ({ initialPosts, communityName }: PostFeedProps) => {
           )
         } else {
           return (
-            <Post
-              key={post.id}
-              currentVote={currentVote}
-              votesAmount={votesAmount}
-              commentAmount={post.comments.length}
-              post={post}
-              communityName={post.community.name}
-            />
+            <li key={post.id}>
+              <Post
+                currentVote={currentVote}
+                votesAmount={votesAmount}
+                commentAmount={post.comments.length}
+                post={post}
+                communityName={post.community.name}
+              />
+            </li>
           )
         }
       })}
+
+      {isFetchingNextPage && (
+        <li className="flex justify-center">
+          <Loader2 className="w-6 h-6 text-zinc-500 animate-spin" />
+        </li>
+      )}
     </ul>
   )
 }

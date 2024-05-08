@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { Inter } from "next/font/google"
 import "../../styles/globals.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
+import Providers from "@/components/Providers"
 
 export const metadata = {
   title: "Spark",
@@ -27,14 +28,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* @ts-expect-error Server Component */}
-          <Navbar />
-          {authModal}
-          <div className="w-full flex justify-center items-center min-h-screen dark:bg-[#1F1F1F]">
-            {children}
-          </div>
+          <Providers>
+            {/* @ts-expect-error Server Component */}
+            <Navbar />
+            {authModal}
+            <div className="w-full flex justify-center items-center min-h-screen dark:bg-[#1F1F1F]">
+              {children}
+            </div>
 
-          <Toaster />
+            <Toaster />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
