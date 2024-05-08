@@ -4,6 +4,7 @@ import { Button } from "./ui/button"
 import { getAuthSession } from "@/lib/auth"
 import ThemeSwitcher from "./ThemeSwitcher"
 import DropdownNav from "./DropdownNav"
+import SearchBar from "./SearchBar"
 
 const Navbar = async () => {
   const session = await getAuthSession()
@@ -19,9 +20,8 @@ const Navbar = async () => {
         ></Image>
         <p className="hidden text-2xl font-bold md:block">spark</p>
       </Link>
+      <SearchBar />
       <div className="flex items-center gap-1">
-        {/* Search bar */}
-
         {session?.user ? (
           <div className="flex gap-3">
             <ThemeSwitcher />

@@ -95,7 +95,7 @@ const SubscribeLeaveToggle = ({
   return isSubscribed ? (
     <Button
       onClick={() => unsubscribe()}
-      className="rounded-full"
+      className="rounded-full dark:bg-[#1f1f1f] dark:border-[#ffffff33] dark:hover:bg-[#303030]"
       variant="outline"
     >
       {isUnSubloading ? (

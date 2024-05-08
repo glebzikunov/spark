@@ -12,7 +12,7 @@ const MiniCreatePost = () => {
     <Button
       onClick={() => router.push(pathname + "/submit")}
       variant="outline"
-      className="flex gap-2 rounded-full dark:bg-[#1f1f1f] dark:border-[#313131] dark:hover:bg-[#303030]"
+      className="flex gap-2 rounded-full dark:bg-[#1f1f1f] dark:border-[#ffffff33] dark:hover:bg-[#303030]"
     >
       <Plus strokeWidth={1} />
       Create a post
