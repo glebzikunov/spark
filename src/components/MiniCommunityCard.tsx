@@ -6,8 +6,8 @@ import { UserCircle2Icon } from "lucide-react"
 interface MiniCommunityCardProps {
   id: string
   communityName: string
-  communityDescription?: string
-  imgUrl?: string | null
+  communityDescription: string | null
+  imgUrl: string | null
   subscribers: {
     user: {
       id: string
@@ -36,7 +36,7 @@ const MiniCommunityCard = ({
             />
           ) : (
             <UserCircle2Icon
-              strokeWidth={0.5}
+              strokeWidth={0.75}
               className="h-12 w-12 stroke-[#F97316]"
             />
           )}
@@ -69,7 +69,7 @@ const MiniCommunityCard = ({
                 height={28}
                 className={`${
                   index !== 0 && "-ml-2"
-                } rounded-full object-cover`}
+                } rounded-full object-cover aspect-square`}
               />
             ))}
             {subscribers.length > 3 && (

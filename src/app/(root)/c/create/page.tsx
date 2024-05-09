@@ -10,15 +10,23 @@ import { CreateCommunityPayload } from "@/lib/validators/community"
 import { Loader2 } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 import { useCustomToast } from "@/hooks/use-custom.toast"
+import { UploadDropzone } from "@uploadthing/react"
+import { OurFileRouter } from "@/app/api/uploadthing/core"
+import Image from "next/image"
+import { Textarea } from "@/components/ui/textarea"
 
 const Page = () => {
   const [input, setInput] = useState<string>("")
+  const [communityDescription, setCommunityDescription] = useState<string>("")
+  const [imageUrl, setImageUrl] = useState<string>("")
   const router = useRouter()
   const { loginToast } = useCustomToast()
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: CreateCommunityPayload = {
+        image: imageUrl,
+        description: communityDescription,
         name: input,
       }
 
@@ -56,6 +64,9 @@ const Page = () => {
     },
     onSuccess: (data) => {
       router.push(`/c/${data}`)
+      toast({
+        description: "Community created.",
+      })
     },
   })
 
@@ -63,9 +74,39 @@ const Page = () => {
     <div className=" w-full flex items-center h-full max-w-5xl mx-auto">
       <div className="relative bg-[#eaedef] dark:bg-[#262626] w-full h-fit p-4 rounded-lg space-y-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Create a community</h1>
+          <h1 className="text-2xl md:text-3xl font-bold">Create a community</h1>
         </div>
-        <hr className="bg-[#303030] dark:bg-[#ffffff33] h-[2px]" />
+        <div className="flex flex-col">
+          <p className="text-lg font-medium">Image</p>
+          <p className="text-xs text-[#576f76] dark:text-[#838383] pb-2">
+            Files up to 4MB
+          </p>
+          {imageUrl.length > 0 ? (
+            <Image
+              src={imageUrl}
+              alt="Community image"
+              width={80}
+              height={80}
+              className="rounded-full aspect-square object-cover self-center"
+            />
+          ) : (
+            <UploadDropzone<OurFileRouter>
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                // @ts-ignore
+                setImageUrl(res[0].fileUrl)
+                console.log("Files: ", res)
+              }}
+              onUploadError={(error: Error) => {
+                toast({
+                  title: "There was an error uploading a photo.",
+                  description: `Error: ${error.message}`,
+                  variant: "destructive",
+                })
+              }}
+            />
+          )}
+        </div>
         <div className="flex flex-col">
           <p className="text-lg font-medium">Name</p>
           <p className="text-xs text-[#576f76] dark:text-[#838383] pb-2">
@@ -83,7 +124,18 @@ const Page = () => {
             />
           </div>
         </div>
-        <div className="flex justify-end gap-4">
+        <div className="flex flex-col">
+          <p className="text-lg font-medium">Description</p>
+          <Textarea
+            id="comment"
+            value={communityDescription}
+            onChange={(e) => setCommunityDescription(e.target.value)}
+            rows={1}
+            placeholder="Community bio"
+            className="mt-2 bg-[#f9fafa] dark:bg-[#262626] border border-border dark:border-[#ffffff33]"
+          />
+        </div>
+        <div className="flex justify-between xs:justify-end xs:gap-4">
           <Button variant="secondary" onClick={() => router.back()}>
             Cancel
           </Button>

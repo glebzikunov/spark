@@ -45,8 +45,7 @@ export default async function RootLayout({
               /c/{community.name}
             </h2>
             <p className="text-[14px] text-[#576f76] dark:text-[#838383]">
-              Spark community subtitle community subtitle community subtitle
-              community subtitle community
+              {community.description || `${community.name} community`}
             </p>
           </div>
           <dl className="mt-4 border-t-[1px] border-border dark:border-[#ffffff33] divide-y divide-border dark:divide-[#ffffff33] leading-6">

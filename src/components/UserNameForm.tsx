@@ -72,7 +72,7 @@ const UserNameForm = ({ user }: UserNameFormProps) => {
 
   return (
     <form onSubmit={handleSubmit((e) => updateUsername(e))}>
-      <Card className="dark:bg-[#262626]">
+      <Card className="dark:bg-[#262626] dark:border-[#ffffff33]">
         <CardHeader>
           <CardTitle>Your username</CardTitle>
           <CardDescription>

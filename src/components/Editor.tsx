@@ -82,7 +82,7 @@ const Editor = ({ communityId }: EditorProps) => {
           },
           list: List,
           code: Code,
-          inlinceCode: InlineCode,
+          inlineCode: InlineCode,
           table: Table,
           embed: Embed,
         },

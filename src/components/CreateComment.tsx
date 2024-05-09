@@ -49,6 +49,9 @@ const CreateComment = ({ postId, replyToId }: CreateCommentProps) => {
     onSuccess: () => {
       router.refresh()
       setInput("")
+      toast({
+        description: "Comment successfully posted.",
+      })
     },
   })
 
@@ -62,7 +65,7 @@ const CreateComment = ({ postId, replyToId }: CreateCommentProps) => {
           onChange={(e) => setInput(e.target.value)}
           rows={1}
           placeholder="What are your thoughts?"
-          className="bg-[#f9fafa] dark:bg-[#262626] border border-border dark:border-[#313131]"
+          className="bg-[#f9fafa] dark:bg-[#262626] border border-border dark:border-[#ffffff33]"
         />
         <div className="mt-2 flex justify-end">
           <Button

@@ -33,8 +33,6 @@ const page = async () => {
     },
   })
 
-  console.log(followedCommunities[0].community.subscribers)
-
   return (
     <>
       <h1 className="font-bold text-2xl md:text-3xl">Followed Communities</h1>
@@ -48,6 +46,8 @@ const page = async () => {
               <MiniCommunityCard
                 key={communityId}
                 id={communityId}
+                communityDescription={community.description}
+                imgUrl={community.image}
                 communityName={community.name}
                 subscribers={community.subscribers}
               />

@@ -13,9 +13,10 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import axios from "axios"
 import { Community, Prisma } from "@prisma/client"
 import { usePathname, useRouter } from "next/navigation"
-import { Users } from "lucide-react"
+import { UserCircle2Icon } from "lucide-react"
 import debounce from "lodash.debounce"
 import { useOnClickOutside } from "@/hooks/use-on-click-outside"
+import UserAvatar from "./UserAvatar"
 
 const SearchBar = () => {
   const [input, setInput] = useState<string>("")
@@ -87,7 +88,21 @@ const SearchBar = () => {
                   key={community.id}
                   value={community.name}
                 >
-                  <Users className="mr-2 h-4 w-4" />
+                  {community.image ? (
+                    <UserAvatar
+                      user={{
+                        name: community.name || null,
+                        image: community.image || null,
+                      }}
+                      className="mr-2 h-6 w-6"
+                    />
+                  ) : (
+                    <UserCircle2Icon
+                      strokeWidth={0.75}
+                      className="mr-2 h-6 w-6 stroke-[#F97316]"
+                    />
+                  )}
+
                   <a href={`/c/${community.name}`}>c/{community.name}</a>
                 </CommandItem>
               ))}

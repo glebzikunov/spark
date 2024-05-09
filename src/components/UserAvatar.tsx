@@ -2,6 +2,7 @@ import { User } from "next-auth"
 import { Avatar, AvatarFallback } from "./ui/avatar"
 import Image from "next/image"
 import { AvatarProps } from "@radix-ui/react-avatar"
+import { UserCircle2Icon } from "lucide-react"
 
 interface UserAvatarProps extends AvatarProps {
   user: Pick<User, "name" | "image">
@@ -15,17 +16,16 @@ const UserAvatar = ({ user, ...props }: UserAvatarProps) => {
           <Image
             fill
             src={user.image}
-            alt="Profile picture"
+            alt="Avatar"
             referrerPolicy="no-referrer"
           />
         </div>
       ) : (
         <AvatarFallback>
           <span className="sr-only">{user?.name}</span>
-          <Image
-            className="h-4 w-4"
-            src="/assets/user.svg"
-            alt="Profile picture"
+          <UserCircle2Icon
+            strokeWidth={0.5}
+            className="h-4 w-4 stroke-[#F97316]"
           />
         </AvatarFallback>
       )}

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster"
 import Providers from "@/components/Providers"
 import Bottombar from "@/components/Bottombar"
 import "@/styles/globals.css"
+import "@uploadthing/react/styles.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
 
 export const metadata = {
