@@ -8,8 +8,8 @@ export const sidebarLinks = [
   },
   {
     icon: <Plus strokeWidth={1} className="dark:stroke-white" />,
-    route: "/create",
-    label: "Create",
+    route: "/c/create",
+    label: "Create community",
   },
   {
     icon: <Bell strokeWidth={1} className="dark:stroke-white" />,
@@ -23,7 +23,7 @@ export const sidebarLinks = [
   },
   {
     icon: <Users strokeWidth={1} className="dark:stroke-white" />,
-    route: "/communities",
+    route: "/c",
     label: "Communities",
   },
 ]
