@@ -25,7 +25,10 @@ const Navbar = async () => {
         {session?.user ? (
           <div className="flex gap-3">
             <ThemeSwitcher />
-            <DropdownNav user={session.user} />
+            <DropdownNav
+              user={session.user}
+              username={session.user.username || ""}
+            />
           </div>
         ) : (
           <div className="flex gap-3">

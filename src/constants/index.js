@@ -27,3 +27,8 @@ export const sidebarLinks = [
     label: "Communities",
   },
 ]
+
+export const profileTabs = [
+  { value: "new", label: "New" },
+  { value: "popular", label: "Popular" },
+]

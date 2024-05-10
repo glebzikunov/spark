@@ -14,9 +14,10 @@ import { signOut } from "next-auth/react"
 
 interface DropdownNavProps {
   user: Pick<User, "name" | "image" | "email">
+  username: string
 }
 
-const DropdownNav = ({ user }: DropdownNavProps) => {
+const DropdownNav = ({ user, username }: DropdownNavProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -40,6 +41,9 @@ const DropdownNav = ({ user }: DropdownNavProps) => {
           </div>
         </div>
         <DropdownMenuSeparator className="dark:bg-[#ffffff33]" />
+        <DropdownMenuItem className="cursor-pointer" asChild>
+          <Link href={`/u/${username}`}>Profile</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/">Feed</Link>
         </DropdownMenuItem>

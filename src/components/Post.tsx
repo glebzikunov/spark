@@ -51,9 +51,12 @@ const Post = ({
                   >
                     c/{communityName}
                   </a>
-                  <span className="text-[#576F76] dark:text-[#838383]">
+                  <a
+                    className="text-[#576F76] dark:text-[#838383] hover:underline hover:underline-offset-2"
+                    href={`/u/${post.author.username}`}
+                  >
                     u/{post.author.username}
-                  </span>
+                  </a>
                 </div>
               ) : null}
 

@@ -76,9 +76,12 @@ const PostComment = ({
           className="h-7 w-7"
         />
         <div className="ml-2 flex items-center text-xs gap-x-2">
-          <p className="font-bold text-[#2A3C42] dark:text-[#838383]">
+          <a
+            href={`/u/${comment.author.username}`}
+            className="hover:underline hover:underline-offset-2 font-bold text-[#2A3C42] dark:text-[#838383]"
+          >
             u/{comment.author.username}
-          </p>
+          </a>
           <span className="text-[#F97316] font-bold">●</span>
           <p className="max-h-40 truncate text-[#576F76] dark:text-[#838383]">
             {formatTimeToNow(new Date(comment.createdAt))}
