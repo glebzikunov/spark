@@ -1,6 +1,6 @@
 import { getAuthSession } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { UsernameValidator } from "@/lib/validators/username"
+import { UserImageValidator } from "@/lib/validators/user"
 import { z } from "zod"
 
 export async function PATCH(req: Request) {
@@ -12,24 +12,14 @@ export async function PATCH(req: Request) {
     }
 
     const body = await req.json()
-    const { name } = UsernameValidator.parse(body)
-
-    const username = await db.user.findFirst({
-      where: {
-        username: name,
-      },
-    })
-
-    if (username) {
-      return new Response("This username is already taken", { status: 409 })
-    }
+    const { image } = UserImageValidator.parse(body)
 
     await db.user.update({
       where: {
         id: session.user.id,
       },
       data: {
-        username: name,
+        image: image,
       },
     })
 
@@ -42,7 +32,7 @@ export async function PATCH(req: Request) {
     }
 
     return new Response(
-      "Could not update username at this time. Try again later.",
+      "Could not update user image at this time. Try again later.",
       { status: 500 }
     )
   }

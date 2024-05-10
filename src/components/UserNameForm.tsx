@@ -1,6 +1,6 @@
 "use client"
 
-import { UsernameRequest, UsernameValidator } from "@/lib/validators/username"
+import { UsernameRequest, UsernameValidator } from "@/lib/validators/user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { User } from "@prisma/client"
 import { useForm } from "react-hook-form"
@@ -42,7 +42,7 @@ const UserNameForm = ({ user }: UserNameFormProps) => {
     mutationFn: async ({ name }: UsernameRequest) => {
       const payload: UsernameRequest = { name }
 
-      const { data } = await axios.patch(`/api/username`, payload)
+      const { data } = await axios.patch(`/api/settings/username`, payload)
       return data
     },
     onError: (err) => {

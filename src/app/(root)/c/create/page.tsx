@@ -95,7 +95,6 @@ const Page = () => {
               onClientUploadComplete={(res) => {
                 // @ts-ignore
                 setImageUrl(res[0].fileUrl)
-                console.log("Files: ", res)
               }}
               onUploadError={(error: Error) => {
                 toast({

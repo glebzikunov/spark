@@ -1,5 +1,8 @@
-import { type } from "os"
 import { z } from "zod"
+
+export const UserImageValidator = z.object({
+  image: z.string(),
+})
 
 export const UsernameValidator = z.object({
   name: z
@@ -10,3 +13,4 @@ export const UsernameValidator = z.object({
 })
 
 export type UsernameRequest = z.infer<typeof UsernameValidator>
+export type UserImageRequest = z.infer<typeof UserImageValidator>
