@@ -126,7 +126,6 @@ const Page = () => {
         <div className="flex flex-col">
           <p className="text-lg font-medium">Description</p>
           <Textarea
-            id="comment"
             value={communityDescription}
             onChange={(e) => setCommunityDescription(e.target.value)}
             rows={1}

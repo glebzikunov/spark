@@ -2,6 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { UserCircle2Icon } from "lucide-react"
+import { db } from "@/lib/db"
+import { getAuthSession } from "@/lib/auth"
 
 interface MiniCommunityCardProps {
   id: string
@@ -16,13 +18,18 @@ interface MiniCommunityCardProps {
   }[]
 }
 
-const MiniCommunityCard = ({
+const MiniCommunityCard = async ({
   id,
   communityName,
   communityDescription,
   imgUrl,
   subscribers,
 }: MiniCommunityCardProps) => {
+  const session = await getAuthSession()
+  const currentCommunity = await db.community.findFirst({
+    where: { name: communityName },
+  })
+
   return (
     <article className="communityCard">
       <div className="flex flex-wrap items-center gap-2">
@@ -54,9 +61,18 @@ const MiniCommunityCard = ({
       </p>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-        <Link href={`/c/${communityName}`}>
-          <Button size="sm">View</Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href={`/c/${communityName}`}>
+            <Button size="sm">View</Button>
+          </Link>
+          {currentCommunity?.creatorId === session?.user.id ? (
+            <Link href={`/c/edit/${communityName}`}>
+              <Button variant="destructive" size="sm">
+                Manage
+              </Button>
+            </Link>
+          ) : null}
+        </div>
 
         {subscribers.length > 0 && (
           <div className="flex items-center">
