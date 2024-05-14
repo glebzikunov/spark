@@ -8,6 +8,7 @@ import { formatTimeToNow } from "@/lib/utils"
 import { CachedPost } from "@/types/redis"
 import { Post, User, Vote } from "@prisma/client"
 import { Loader2, ThumbsDown, ZapIcon } from "lucide-react"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
@@ -48,9 +49,14 @@ const Page = async ({ params }: PageProps) => {
           <div className="w-0 flex-1">
             <div className="flex items-center">
               <div className="flex items-center max-h-40 text-xs">
-                <p className="font-bold text-[#2A3C42] dark:text-[#838383]">
+                <Link
+                  href={`/u/${
+                    post?.author.username ?? cachedPost.authorUsername
+                  }`}
+                  className="font-bold text-[#2A3C42] dark:text-[#838383] hover:underline underline-offset-2"
+                >
                   u/{post?.author.username ?? cachedPost.authorUsername}
-                </p>
+                </Link>
                 <span className="text-[#F97316] font-bold px-2">●</span>
                 <span className="font-medium text-[#576F76] dark:text-[#838383]">
                   {formatTimeToNow(
@@ -102,7 +108,7 @@ const Page = async ({ params }: PageProps) => {
 
 function PostVoteShell() {
   return (
-    <div className="flex items-center flex-col pr-6 w-20">
+    <div className="flex items-center pr-6 w-20">
       <Button
         className="px-1 sm:px-3 rounded-sm hover:bg-[#dcdcdd] dark:hover:bg-[#464646]"
         size="sm"

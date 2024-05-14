@@ -38,6 +38,14 @@ const CreateComment = ({ postId, replyToId }: CreateCommentProps) => {
         if (error.response?.status === 401) {
           return loginToast()
         }
+
+        if (error.response?.status === 400) {
+          return toast({
+            title: "Error.",
+            description: "Comment length is less than 3 characters.",
+            variant: "destructive",
+          })
+        }
       }
 
       return toast({

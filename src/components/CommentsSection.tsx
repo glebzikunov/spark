@@ -58,36 +58,42 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
                     postId={postId}
                     currentVote={topLevelCommentVote}
                     votesAmount={topLevelCommentVotesAmount}
+                    currentUserId={session?.user.id}
+                    authorId={topLevelComment.authorId}
                   />
                 </div>
 
-                {topLevelComment.replies.map((reply) => {
-                  const replyVotesAmount = reply.likes.reduce((acc, vote) => {
-                    if (vote.type === "LIKE") return acc + 1
-                    if (vote.type === "DISLIKE") return acc - 1
+                {topLevelComment.replies
+                  .sort((a, b) => b.likes.length - a.likes.length)
+                  .map((reply) => {
+                    const replyVotesAmount = reply.likes.reduce((acc, vote) => {
+                      if (vote.type === "LIKE") return acc + 1
+                      if (vote.type === "DISLIKE") return acc - 1
 
-                    return acc
-                  }, 0)
+                      return acc
+                    }, 0)
 
-                  const replyVote = reply.likes.find(
-                    (like) => like.userId === session?.user.id
-                  )
+                    const replyVote = reply.likes.find(
+                      (like) => like.userId === session?.user.id
+                    )
 
-                  return (
-                    <div
-                      key={reply.id}
-                      className="ml-3 py-2 pl-4 border-l-2 border-border dark:border-[#ffffff33]"
-                    >
-                      <PostComment
-                        /* @ts-ignore */
-                        comment={reply}
-                        currentVote={replyVote}
-                        votesAmount={replyVotesAmount}
-                        postId={postId}
-                      />
-                    </div>
-                  )
-                })}
+                    return (
+                      <div
+                        key={reply.id}
+                        className="ml-3 py-2 pl-4 border-l-2 border-border dark:border-[#ffffff33]"
+                      >
+                        <PostComment
+                          /* @ts-ignore */
+                          comment={reply}
+                          currentVote={replyVote}
+                          votesAmount={replyVotesAmount}
+                          postId={postId}
+                          currentUserId={session?.user.id}
+                          authorId={reply.authorId}
+                        />
+                      </div>
+                    )
+                  })}
               </div>
             )
           })}

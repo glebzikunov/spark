@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import { useState } from "react"
 import UserAvatar from "./UserAvatar"
 import { Comment, CommentVote, User } from "@prisma/client"
 import { formatTimeToNow } from "@/lib/utils"
@@ -9,12 +9,12 @@ import { Button } from "./ui/button"
 import { Loader2, MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { useMutation } from "@tanstack/react-query"
 import { CommentRequest } from "@/lib/validators/comment"
 import axios from "axios"
 import { toast } from "@/hooks/use-toast"
+import DeleteComment from "./DeleteComment"
 
 type ExtendedComment = Comment & {
   votes: CommentVote[]
@@ -26,6 +26,8 @@ interface PostCommentProps {
   votesAmount: number
   currentVote: CommentVote | undefined
   postId: string
+  authorId: string
+  currentUserId: string | undefined
 }
 
 const PostComment = ({
@@ -33,12 +35,13 @@ const PostComment = ({
   votesAmount,
   currentVote,
   postId,
+  authorId,
+  currentUserId,
 }: PostCommentProps) => {
-  const commentRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const { data: session } = useSession()
-  const [isReplying, setIsReplying] = useState<boolean>(false)
   const [input, setInput] = useState<string>("")
+  const [isReplying, setIsReplying] = useState<boolean>(false)
 
   const { mutate: postComment, isLoading } = useMutation({
     mutationFn: async ({ postId, text, replyToId }: CommentRequest) => {
@@ -61,12 +64,11 @@ const PostComment = ({
     onSuccess: () => {
       router.refresh()
       setIsReplying(false)
-      setInput("")
     },
   })
 
   return (
-    <div ref={commentRef} className="flex flex-col">
+    <div className="flex flex-col">
       <div className="flex items-center">
         <UserAvatar
           user={{
@@ -105,15 +107,20 @@ const PostComment = ({
           size="sm"
           className="flex items-center"
         >
-          <MessageCircle className="h-5 w-5 mr-2" />
-          Reply
+          <MessageCircle className="h-5 w-5 sm:mr-2" />
+          <span className="hidden sm:block">Reply</span>
         </Button>
+
+        <DeleteComment
+          currentUserId={currentUserId}
+          authorId={authorId}
+          commentId={comment.id}
+        />
       </div>
       {isReplying ? (
         <div className="grid w-full gap-1.5">
           <div className="mt-3">
             <Textarea
-              id="comment"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={1}
@@ -129,6 +136,7 @@ const PostComment = ({
                 Cancel
               </Button>
               <Button
+                disabled={input.length === 0}
                 onClick={() =>
                   postComment({
                     postId,
@@ -136,7 +144,6 @@ const PostComment = ({
                     replyToId: comment.replyToId ?? comment.id,
                   })
                 }
-                disabled={input.length === 0}
               >
                 {isLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />

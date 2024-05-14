@@ -6,4 +6,9 @@ export const CommentValidator = z.object({
   replyToId: z.string().optional(),
 })
 
+export const DeleteCommentValidator = z.object({
+  commentId: z.string(),
+})
+
 export type CommentRequest = z.infer<typeof CommentValidator>
+export type DeleteCommentRequest = z.infer<typeof DeleteCommentValidator>
