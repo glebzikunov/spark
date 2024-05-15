@@ -29,6 +29,7 @@ export async function POST(req: Request) {
       data: {
         communityId,
         userId: session.user.id,
+        isModerator: false,
       },
     })
 

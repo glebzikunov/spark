@@ -6,22 +6,20 @@ import CommunityDescriptionForm from "./CommunityDescriptionForm"
 
 interface EditCommunityFormProps {
   id: string
-  creatorId: string | null | undefined
-  userId: string | undefined
+  isModerator: boolean
   communityImage: string | null | undefined
   description: string | null | undefined
 }
 
 const EditCommunityForm = ({
   id,
-  creatorId,
-  userId,
+  isModerator,
   communityImage,
   description,
 }: EditCommunityFormProps) => {
   const router = useRouter()
 
-  if (creatorId !== userId) router.push("/")
+  if (isModerator === false) router.push("/")
 
   return (
     <div className="grid items-start gap-4">

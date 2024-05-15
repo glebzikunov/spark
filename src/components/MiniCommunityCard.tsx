@@ -29,6 +29,12 @@ const MiniCommunityCard = async ({
   const currentCommunity = await db.community.findFirst({
     where: { name: communityName },
   })
+  const currentUserSubscription = await db.subscribtion.findFirst({
+    where: {
+      communityId: id,
+      userId: session?.user.id,
+    },
+  })
 
   return (
     <article className="communityCard">
@@ -65,7 +71,8 @@ const MiniCommunityCard = async ({
           <Link href={`/c/${communityName}`}>
             <Button size="sm">View</Button>
           </Link>
-          {currentCommunity?.creatorId === session?.user.id ? (
+          {currentCommunity?.creatorId === session?.user.id ||
+          currentUserSubscription?.isModerator === true ? (
             <Link href={`/c/edit/${communityName}`}>
               <Button variant="destructive" size="sm">
                 Manage
