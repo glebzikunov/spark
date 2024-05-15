@@ -2,11 +2,12 @@
 
 import { formatTimeToNow } from "@/lib/utils"
 import { Post, User, Vote } from "@prisma/client"
-import { MessageCircle, Share2 } from "lucide-react"
+import { MessageCircle } from "lucide-react"
 import { useRef } from "react"
 import EditorOutput from "./EditorOutput"
 import UserAvatar from "./UserAvatar"
 import PostVoteClient from "./post-vote/PostVoteClient"
+import PostDropdown from "./PostDropdown"
 
 type PartialVote = Pick<Vote, "type">
 
@@ -83,7 +84,7 @@ const Post = ({
           </div>
         </div>
       </div>
-      <div className="z-20 text-sm px-4 pb-4 sm:px-6 pt-4 sm:pb-6 ">
+      <div className="flex justify-between z-20 text-sm px-4 pb-4 sm:px-6 pt-4 sm:pb-6 ">
         <div className="flex items-center gap-4 sm:gap-8">
           <PostVoteClient
             postId={post.id}
@@ -99,11 +100,12 @@ const Post = ({
               {commentAmount !== 1 ? "comments" : "comment"}
             </span>
           </a>
-          <div className="flex items-center gap-2 cursor-pointer">
-            <Share2 className="h-5 w-5" fill="true" />
-            <span className="hidden sm:block font-medium">Share</span>
-          </div>
         </div>
+        <PostDropdown
+          communityName={communityName}
+          authorId={post.author.id}
+          postId={post.id}
+        />
       </div>
     </div>
   )

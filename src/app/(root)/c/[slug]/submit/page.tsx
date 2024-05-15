@@ -38,7 +38,12 @@ const Page = async ({ params }: PageProps) => {
         <Button variant="secondary" asChild>
           <Link href={`/c/${params.slug}`}>Cancel</Link>
         </Button>
-        <Button type="submit" form="community-post-form">
+        <Button
+          className="border-[#F97316] hover:bg-[#F97316] text-[#F97316] hover:text-white"
+          variant="outline"
+          type="submit"
+          form="community-post-form"
+        >
           Post
         </Button>
       </div>
