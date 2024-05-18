@@ -12,11 +12,6 @@ export const sidebarLinks = [
     label: "Create community",
   },
   {
-    icon: <Bell strokeWidth={1} className="dark:stroke-white" />,
-    route: "/activity",
-    label: "Activity",
-  },
-  {
     icon: <Bookmark strokeWidth={1} className="dark:stroke-white" />,
     route: "/bookmarks",
     label: "Bookmarks",

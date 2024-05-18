@@ -51,6 +51,7 @@ model User {
   accounts Account[]
   sessions Session[]
 
+  Bookmark Bookmark[]
   Post Post[]
   Comment Comment[]
   CommentVote CommentVote[]
@@ -98,8 +99,18 @@ model Post {
   author User @relation(fields: [authorId], references: [id])
   authorId String
 
+  Bookmark Bookmark[]
   comments Comment[]
   votes Vote[]
+}
+
+model Bookmark {
+  user   User @relation(fields: [userId], references: [id])
+  userId String
+  post   Post @relation(fields: [postId], references: [id])
+  postId String
+
+  @@id([userId, postId])
 }
 
 model Comment {

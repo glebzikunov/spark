@@ -7,12 +7,12 @@ import {
   DropdownMenuTrigger,
   DropdownMenuItem,
 } from "./ui/dropdown-menu"
-import { Ellipsis, Loader2, Share2, Trash2 } from "lucide-react"
+import { Bookmark, Ellipsis, Loader2, Share2, Trash2 } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
-import { PostDeletionRequest } from "@/lib/validators/post"
-import axios from "axios"
+import { BookmarkPostRequest, PostDeletionRequest } from "@/lib/validators/post"
+import axios, { AxiosError } from "axios"
 
 interface PostDropdown {
   communityName: string
@@ -48,6 +48,43 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
     },
   })
 
+  const { mutate: bookmarkPost, isLoading: isBookmarking } = useMutation({
+    mutationFn: async ({ postId }: BookmarkPostRequest) => {
+      const payload: BookmarkPostRequest = {
+        postId,
+      }
+
+      const { data } = await axios.post(
+        `/api/community/post/bookmark/save`,
+        payload
+      )
+      return data
+    },
+    onSuccess: () => {
+      router.refresh()
+      return toast({
+        description: "Post has been save to bookmarks.",
+      })
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 400) {
+          return toast({
+            title: "Oops...",
+            description: "Post is already saved.",
+            variant: "destructive",
+          })
+        }
+      }
+
+      return toast({
+        title: "Something went wrong",
+        description: "Post wasn't bookmarked successfully. Try again later.",
+        variant: "destructive",
+      })
+    },
+  })
+
   const copyPostUrl = () => {
     navigator.clipboard.writeText(
       window.location.toString() + `c/${communityName}/post/${postId}`
@@ -67,7 +104,7 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
         align="end"
       >
         <DropdownMenuItem
-          className="flex justify-center cursor-pointer"
+          className="flex cursor-pointer"
           onClick={(event) => {
             event.preventDefault()
             copyPostUrl()
@@ -76,6 +113,26 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
           <Share2 className="h-5 w-5 sm:mr-2" fill="true" />
           <span className="hidden sm:block font-medium">Share</span>
         </DropdownMenuItem>
+        <DropdownMenuItem
+          className="flex cursor-pointer"
+          onClick={(event) => {
+            event.preventDefault()
+            if (!session) router.push("/sign-in")
+            bookmarkPost({ postId })
+          }}
+        >
+          {isBookmarking ? (
+            <>
+              <Loader2 className="h-5 w-5 animate-spin sm:mr-2" />
+              <span className="hidden sm:block font-medium">Save</span>
+            </>
+          ) : (
+            <>
+              <Bookmark className="h-5 w-5 sm:mr-2" />
+              <span className="hidden sm:block font-medium">Save</span>
+            </>
+          )}
+        </DropdownMenuItem>
         {session?.user.id === authorId ? (
           <DropdownMenuItem
             onClick={(event) => {
@@ -83,7 +140,7 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
               if (!session) router.push("/sign-in")
               deletePost({ postId })
             }}
-            className="flex justify-center cursor-pointer"
+            className="flex cursor-pointer"
           >
             {isLoading ? (
               <>

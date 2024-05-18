@@ -13,5 +13,10 @@ export const DeletePostValidator = z.object({
   postId: z.string(),
 })
 
+export const BookmarkPostValidator = z.object({
+  postId: z.string(),
+})
+
 export type PostCreationRequest = z.infer<typeof PostValidator>
 export type PostDeletionRequest = z.infer<typeof DeletePostValidator>
+export type BookmarkPostRequest = z.infer<typeof BookmarkPostValidator>
