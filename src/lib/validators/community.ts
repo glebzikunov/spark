@@ -16,6 +16,12 @@ export const CommunityDescriptionValidator = z.object({
   description: z.string().max(500),
 })
 
+export const CommunityBadgeValidator = z.object({
+  id: z.string(),
+  title: z.string().max(21),
+  color: z.string(),
+})
+
 export const CommunitySubscriptionValidator = z.object({
   communityId: z.string(),
 })
@@ -25,7 +31,7 @@ export type CommunityImagePayload = z.infer<typeof CommunityImageValidator>
 export type CommunityDescriptionPayload = z.infer<
   typeof CommunityDescriptionValidator
 >
-
+export type CommunityBadgePayload = z.infer<typeof CommunityBadgeValidator>
 export type SubscribeToCommunityPayload = z.infer<
   typeof CommunitySubscriptionValidator
 >

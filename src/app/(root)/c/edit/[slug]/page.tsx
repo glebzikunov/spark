@@ -14,6 +14,9 @@ const EditCommunity = async ({ params }: EditCommunityProps) => {
   const session = await getAuthSession()
   const community = await db.community.findFirst({
     where: { name: params.slug },
+    include: {
+      badges: true,
+    },
   })
 
   const currentUserSubscription = await db.subscribtion.findFirst({
@@ -57,10 +60,11 @@ const EditCommunity = async ({ params }: EditCommunityProps) => {
       </h1>
       <div className="mt-5">
         <EditCommunityForm
-          id={community?.id || ""}
           isModerator={currentUserSubscription?.isModerator}
+          id={community?.id || ""}
           communityImage={community?.image}
           description={community?.description || `${community?.name} community`}
+          badges={community?.badges}
         />
       </div>
       <div className="mt-5">
