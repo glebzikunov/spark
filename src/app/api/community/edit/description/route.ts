@@ -15,8 +15,17 @@ export async function PATCH(req: Request) {
     const { description, id } = CommunityDescriptionValidator.parse(body)
 
     const community = await db.community.findFirst({ where: { id } })
+    const currentUserSubscription = await db.subscribtion.findFirst({
+      where: {
+        communityId: id,
+        userId: session?.user.id,
+      },
+    })
 
-    if (community?.creatorId !== session.user.id) {
+    if (
+      community?.creatorId !== session?.user.id ||
+      currentUserSubscription?.isModerator === false
+    ) {
       return new Response(
         "Access denied. You are not moderator of this community.",
         { status: 403 }
@@ -25,7 +34,7 @@ export async function PATCH(req: Request) {
 
     await db.community.update({
       where: {
-        id: community.id,
+        id: community?.id,
       },
       data: {
         description: description,
