@@ -10,6 +10,12 @@ interface CommentsSectionProps {
 const CommentsSection = async ({ postId }: CommentsSectionProps) => {
   const session = await getAuthSession()
 
+  const post = await db.post.findFirst({
+    where: {
+      id: postId,
+    },
+  })
+
   const comments = await db.comment.findMany({
     where: {
       postId,
@@ -60,6 +66,7 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
                     votesAmount={topLevelCommentVotesAmount}
                     currentUserId={session?.user.id}
                     authorId={topLevelComment.authorId}
+                    isPremium={post?.isPremium}
                   />
                 </div>
 
@@ -90,6 +97,7 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
                           postId={postId}
                           currentUserId={session?.user.id}
                           authorId={reply.authorId}
+                          isPremium={post?.isPremium}
                         />
                       </div>
                     )

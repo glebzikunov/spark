@@ -2,7 +2,7 @@
 
 import { formatTimeToNow } from "@/lib/utils"
 import { Post, User, Vote } from "@prisma/client"
-import { MessageCircle } from "lucide-react"
+import { Gem, MessageCircle } from "lucide-react"
 import { useRef } from "react"
 import EditorOutput from "./EditorOutput"
 import UserAvatar from "./UserAvatar"
@@ -36,13 +36,23 @@ const Post = ({
       <div className="px-4 pt-4 sm:px-6 sm:pt-6 pb-0 flex">
         <div className="w-0 flex-1">
           <div className="flex items-center gap-2">
-            <UserAvatar
-              user={{
-                name: post.author.name || null,
-                image: post.author.image || null,
-              }}
-              className="h-7 w-7"
-            />
+            <div className="relative">
+              <UserAvatar
+                user={{
+                  name: post.author.name || null,
+                  image: post.author.image || null,
+                }}
+                className="h-7 w-7"
+              />
+              {post.isPremium ? (
+                <Gem
+                  strokeWidth={2}
+                  fill="#38b1e7"
+                  size={10}
+                  className="absolute right-0 bottom-0 stroke-[#299acc]"
+                />
+              ) : null}
+            </div>
             <div className="flex items-center max-h-40 text-xs">
               {communityName ? (
                 <div className="flex flex-col">

@@ -6,7 +6,7 @@ import { Comment, CommentVote, User } from "@prisma/client"
 import { formatTimeToNow } from "@/lib/utils"
 import CommentVotes from "./CommentVotes"
 import { Button } from "./ui/button"
-import { Loader2, MessageCircle } from "lucide-react"
+import { Gem, Loader2, MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { Textarea } from "./ui/textarea"
@@ -28,6 +28,7 @@ interface PostCommentProps {
   postId: string
   authorId: string
   currentUserId: string | undefined
+  isPremium?: boolean | null
 }
 
 const PostComment = ({
@@ -37,6 +38,7 @@ const PostComment = ({
   postId,
   authorId,
   currentUserId,
+  isPremium,
 }: PostCommentProps) => {
   const router = useRouter()
   const { data: session } = useSession()
@@ -70,13 +72,23 @@ const PostComment = ({
   return (
     <div className="flex flex-col">
       <div className="flex items-center">
-        <UserAvatar
-          user={{
-            name: comment.author.name || null,
-            image: comment.author.image || null,
-          }}
-          className="h-7 w-7"
-        />
+        <div className="relative">
+          <UserAvatar
+            user={{
+              name: comment.author.name || null,
+              image: comment.author.image || null,
+            }}
+            className="h-7 w-7"
+          />
+          {isPremium ? (
+            <Gem
+              strokeWidth={2}
+              fill="#38b1e7"
+              size={10}
+              className="absolute right-0 bottom-0 stroke-[#299acc]"
+            />
+          ) : null}
+        </div>
         <div className="ml-2 flex items-center text-xs gap-x-2">
           <a
             href={`/u/${comment.author.username}`}

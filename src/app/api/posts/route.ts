@@ -53,6 +53,8 @@ export async function GET(req: Request) {
           },
         },
       }
+    } else {
+      whereClause = { isPremium: false }
     }
 
     const posts = await db.post.findMany({

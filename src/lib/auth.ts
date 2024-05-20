@@ -3,6 +3,7 @@ import { db } from "./db"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import { nanoid } from "nanoid"
+import { createCustomerIfNull } from "@/helpers/billing"
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -52,6 +53,8 @@ export const authOptions: NextAuthOptions = {
             username: nanoid(10),
           },
         })
+
+        await createCustomerIfNull(dbUser)
       }
 
       return {

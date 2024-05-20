@@ -74,6 +74,7 @@ model Community {
   Creator User? @relation("CreatedBy", fields: [creatorId], references: [id])
   subscribers Subscribtion[]
   badges Badge[]
+  isPremium Boolean?
 
   @@index([name])
 }
@@ -116,6 +117,7 @@ model Post {
   votes Vote[]
   badgeTitle String?
   badgeColor String?
+  isPremium Boolean?
 }
 
 model Bookmark {

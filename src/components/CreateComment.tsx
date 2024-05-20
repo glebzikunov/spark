@@ -46,6 +46,15 @@ const CreateComment = ({ postId, replyToId }: CreateCommentProps) => {
             variant: "destructive",
           })
         }
+
+        if (error.response?.status === 403) {
+          router.push("/")
+          return toast({
+            title: "Access denied.",
+            description: "You are not a spark premium user.",
+            variant: "destructive",
+          })
+        }
       }
 
       return toast({

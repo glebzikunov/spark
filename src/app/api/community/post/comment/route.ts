@@ -1,3 +1,4 @@
+import { hasSubscription } from "@/helpers/billing"
 import { getAuthSession } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { CommentValidator } from "@/lib/validators/comment"
@@ -15,14 +16,27 @@ export async function PATCH(req: Request) {
       return new Response("Unauthorized", { status: 401 })
     }
 
-    await db.comment.create({
-      data: {
-        text,
-        postId,
-        authorId: session.user.id,
-        replyToId,
+    const hasSub = await hasSubscription()
+    const post = await db.post.findFirst({
+      where: {
+        id: postId,
       },
     })
+
+    if (post?.isPremium && !hasSub) {
+      return new Response("Access denied. You are not a spark premium user.", {
+        status: 403,
+      })
+    } else {
+      await db.comment.create({
+        data: {
+          text,
+          postId,
+          authorId: session.user.id,
+          replyToId,
+        },
+      })
+    }
 
     return new Response("OK")
   } catch (error) {

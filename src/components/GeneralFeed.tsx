@@ -4,6 +4,9 @@ import PostFeed from "./PostFeed"
 
 const GeneralFeed = async () => {
   const posts = await db.post.findMany({
+    where: {
+      isPremium: false,
+    },
     orderBy: {
       createdAt: "desc",
     },

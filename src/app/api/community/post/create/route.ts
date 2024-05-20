@@ -28,6 +28,28 @@ export async function POST(req: Request) {
       })
     }
 
+    const community = await db.community.findFirst({
+      where: {
+        id: communityId,
+      },
+    })
+
+    if (community?.isPremium) {
+      await db.post.create({
+        data: {
+          title,
+          content,
+          authorId: session.user.id,
+          communityId,
+          badgeTitle,
+          badgeColor,
+          isPremium: true,
+        },
+      })
+
+      return new Response("OK")
+    }
+
     await db.post.create({
       data: {
         title,
@@ -36,6 +58,7 @@ export async function POST(req: Request) {
         communityId,
         badgeTitle,
         badgeColor,
+        isPremium: false,
       },
     })
 

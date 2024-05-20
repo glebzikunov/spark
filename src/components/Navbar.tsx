@@ -5,9 +5,12 @@ import { getAuthSession } from "@/lib/auth"
 import ThemeSwitcher from "./ThemeSwitcher"
 import DropdownNav from "./DropdownNav"
 import SearchBar from "./SearchBar"
+import { Gem } from "lucide-react"
+import { hasSubscription } from "@/helpers/billing"
 
 const Navbar = async () => {
   const session = await getAuthSession()
+  const hasSub = await hasSubscription()
 
   return (
     <nav className="navbar">
@@ -23,12 +26,20 @@ const Navbar = async () => {
       <SearchBar />
       <div className="flex items-center gap-1">
         {session?.user ? (
-          <div className="flex gap-3">
+          <div className="relative flex gap-3">
             <ThemeSwitcher />
             <DropdownNav
               user={session.user}
               username={session.user.username || ""}
             />
+            {hasSub ? (
+              <Gem
+                strokeWidth={2}
+                size={14}
+                fill="#38b1e7"
+                className="absolute right-0 bottom-0 z-[100] stroke-[#299acc]"
+              />
+            ) : null}
           </div>
         ) : (
           <div className="flex gap-3">

@@ -12,12 +12,6 @@ export default async function Home() {
 
   return (
     <>
-      {/* TABS 
-        Hot (best in every community by votes for the last 24hr)
-        Top (best for all time by votes)
-        New (all for the last time)
-      */}
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 pb-6">
         {/* @ts-expect-error Server Component */}
         {session ? <CustomFeed /> : <GeneralFeed />}

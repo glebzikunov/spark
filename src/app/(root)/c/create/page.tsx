@@ -14,9 +14,11 @@ import { UploadDropzone } from "@uploadthing/react"
 import { OurFileRouter } from "@/app/api/uploadthing/core"
 import Image from "next/image"
 import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 
 const Page = () => {
   const [input, setInput] = useState<string>("")
+  const [isCommunityPremium, setIsCommunityPremium] = useState<boolean>(false)
   const [communityDescription, setCommunityDescription] = useState<string>("")
   const [imageUrl, setImageUrl] = useState<string>("")
   const router = useRouter()
@@ -28,6 +30,7 @@ const Page = () => {
         image: imageUrl,
         description: communityDescription,
         name: input,
+        isPremium: isCommunityPremium,
       }
 
       const { data } = await axios.post("/api/community", payload)
@@ -47,6 +50,14 @@ const Page = () => {
           return toast({
             title: "Invalid community name.",
             description: "Please choose a name between 3 and 21 characters.",
+            variant: "destructive",
+          })
+        }
+
+        if (err.response?.status === 403) {
+          return toast({
+            title: "Access denied.",
+            description: "You are not a spark premium user.",
             variant: "destructive",
           })
         }
@@ -132,6 +143,29 @@ const Page = () => {
             placeholder="Community bio"
             className="mt-2 bg-[#f9fafa] dark:bg-[#262626] border border-border dark:border-[#ffffff33]"
           />
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="text-lg font-medium">Make Private</p>
+          <div className="flex gap-2">
+            <input
+              type="radio"
+              id="free"
+              name="subscription"
+              value="false"
+              checked={!isCommunityPremium}
+              onChange={() => setIsCommunityPremium(false)}
+            />
+            <Label htmlFor="free">Open</Label>
+            <input
+              type="radio"
+              id="private"
+              name="subscription"
+              value="true"
+              checked={isCommunityPremium}
+              onChange={() => setIsCommunityPremium(true)}
+            />
+            <Label htmlFor="private">Private</Label>
+          </div>
         </div>
         <div className="flex justify-between xs:justify-end xs:gap-4">
           <Button variant="secondary" onClick={() => router.back()}>

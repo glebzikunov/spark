@@ -2,8 +2,9 @@ import UserAvatar from "@/components/UserAvatar"
 import UserProfileFeed from "@/components/UserProfileFeed"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { profileTabs } from "@/constants"
+import { hasSubscription } from "@/helpers/billing"
 import { db } from "@/lib/db"
-import { UserCircle2Icon } from "lucide-react"
+import { Gem, UserCircle2Icon } from "lucide-react"
 import { notFound } from "next/navigation"
 
 interface PageProps {
@@ -40,23 +41,43 @@ const Page = async ({ params }: PageProps) => {
 
   const popularPosts = await getPopularPosts(user.id)
 
+  const hasSub = await hasSubscription()
+
   return (
     <>
       <div className="flex max-md:flex-col max-lg:gap-3 md:items-center justify-between">
         <div className="flex items-center gap-3">
           {user.image ? (
-            <UserAvatar
-              user={{
-                name: user.username || null,
-                image: user.image || null,
-              }}
-              className="h-10 w-10 md:h-20 md:w-20"
-            />
+            <div className="relative">
+              <UserAvatar
+                user={{
+                  name: user.username || null,
+                  image: user.image || null,
+                }}
+                className="h-10 w-10 md:h-20 md:w-20"
+              />
+              {hasSub ? (
+                <Gem
+                  strokeWidth={2}
+                  fill="#38b1e7"
+                  className="absolute h-[14px] w-[14px] md:h-[26px] md:w-[26px] right-0 bottom-0 stroke-[#299acc]"
+                />
+              ) : null}
+            </div>
           ) : (
-            <UserCircle2Icon
-              strokeWidth={0.75}
-              className="h-10 w-10 md:h-20 md:w-20 stroke-[#F97316]"
-            />
+            <div className="relative">
+              <UserCircle2Icon
+                strokeWidth={0.75}
+                className="h-10 w-10 md:h-20 md:w-20 stroke-[#F97316]"
+              />
+              {hasSub ? (
+                <Gem
+                  strokeWidth={2}
+                  fill="#38b1e7"
+                  className="absolute h-[14px] w-[14px] md:h-[26px] md:w-[26px] right-0 bottom-0 stroke-[#299acc]"
+                />
+              ) : null}
+            </div>
           )}
           <div className="flex flex-col">
             <h1 className="font-bold text-xl md:text-2xl">{user.name}</h1>

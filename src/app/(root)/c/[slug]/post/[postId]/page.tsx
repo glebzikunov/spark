@@ -2,6 +2,7 @@ import CommentsSection from "@/components/CommentsSection"
 import EditorOutput from "@/components/EditorOutput"
 import PostVoteServer from "@/components/post-vote/PostVoteServer"
 import { Button } from "@/components/ui/button"
+import { hasSubscription } from "@/helpers/billing"
 import { db } from "@/lib/db"
 import { redis } from "@/lib/redis"
 import { formatTimeToNow } from "@/lib/utils"
@@ -9,7 +10,7 @@ import { CachedPost } from "@/types/redis"
 import { Post, User, Vote } from "@prisma/client"
 import { Loader2, ThumbsDown, ZapIcon } from "lucide-react"
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { Suspense } from "react"
 
 interface PageProps {
@@ -42,11 +43,23 @@ const Page = async ({ params }: PageProps) => {
 
   if (!cachedPost && !post) return notFound()
 
-  const community = await db.community.findFirst({
+  const communityPost = await db.post.findFirst({
     where: {
-      id: post?.communityId,
+      id: params.postId,
     },
   })
+
+  const community = await db.community.findFirst({
+    where: {
+      id: communityPost?.communityId,
+    },
+  })
+
+  const hasSub = await hasSubscription()
+
+  if (communityPost?.isPremium && !hasSub) {
+    redirect("/")
+  }
 
   return (
     <div>
@@ -79,12 +92,12 @@ const Page = async ({ params }: PageProps) => {
                 </span>
               </div>
             </div>
-            {post?.badgeColor !== "none" ? (
+            {communityPost?.badgeColor !== "none" ? (
               <p
-                style={{ backgroundColor: post.badgeColor || "" }}
+                style={{ backgroundColor: communityPost.badgeColor || "" }}
                 className="mt-4 text-sm px-2 w-fit h-fit text-white rounded-full"
               >
-                {post?.badgeTitle}
+                {communityPost?.badgeTitle}
               </p>
             ) : null}
             <h1 className="text-xl font-semibold mt-4 pb-[11px] leading-6">

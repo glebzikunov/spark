@@ -57,7 +57,32 @@ export async function generateCustomerPortalLink(customerId: string) {
   }
 }
 
-export async function createCustomerIfNull() {
+export async function createCustomerIfNull(dbUser?: any) {
+  if (dbUser) {
+    const user = await db.user.findFirst({
+      where: { email: dbUser?.email },
+    })
+
+    if (!user?.stripe_customer_id) {
+      const customer = await stripe.customers.create({
+        email: String(user?.email),
+      })
+
+      await db.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          stripe_customer_id: customer.id,
+        },
+      })
+    }
+    const user2 = await db.user.findFirst({
+      where: { email: dbUser.user?.email },
+    })
+    return user2?.stripe_customer_id
+  }
+
   const session = await getAuthSession()
 
   if (session) {
