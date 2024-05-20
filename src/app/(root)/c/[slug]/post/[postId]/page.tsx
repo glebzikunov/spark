@@ -42,6 +42,12 @@ const Page = async ({ params }: PageProps) => {
 
   if (!cachedPost && !post) return notFound()
 
+  const community = await db.community.findFirst({
+    where: {
+      id: post?.communityId,
+    },
+  })
+
   return (
     <div>
       <div className="rounded-lg border border-border dark:border-[#ffffff33] shadow transition-colors hover:bg-[#f9fafa] dark:hover:bg-[#262626]">
@@ -49,14 +55,22 @@ const Page = async ({ params }: PageProps) => {
           <div className="w-0 flex-1">
             <div className="flex items-center">
               <div className="flex items-center max-h-40 text-xs">
-                <Link
-                  href={`/u/${
-                    post?.author.username ?? cachedPost.authorUsername
-                  }`}
-                  className="font-bold text-[#2A3C42] dark:text-[#838383] hover:underline underline-offset-2"
-                >
-                  u/{post?.author.username ?? cachedPost.authorUsername}
-                </Link>
+                <div className="flex flex-col">
+                  <Link
+                    href={`/c/${community?.name}`}
+                    className="text-[#2A3C42] dark:text-[#5A5A5A] font-bold hover:underline hover:underline-offset-2"
+                  >
+                    c/{community?.name}
+                  </Link>
+                  <Link
+                    href={`/u/${
+                      post?.author.username ?? cachedPost.authorUsername
+                    }`}
+                    className="font-bold text-[#2A3C42] dark:text-[#838383] hover:underline underline-offset-2"
+                  >
+                    u/{post?.author.username ?? cachedPost.authorUsername}
+                  </Link>
+                </div>
                 <span className="text-[#F97316] font-bold px-2">●</span>
                 <span className="font-medium text-[#576F76] dark:text-[#838383]">
                   {formatTimeToNow(
@@ -65,7 +79,15 @@ const Page = async ({ params }: PageProps) => {
                 </span>
               </div>
             </div>
-            <h1 className="text-xl font-semibold pt-4 pb-[11px] leading-6">
+            {post?.badgeColor !== "none" ? (
+              <p
+                style={{ backgroundColor: post.badgeColor || "" }}
+                className="mt-4 text-sm px-2 w-fit h-fit text-white rounded-full"
+              >
+                {post?.badgeTitle}
+              </p>
+            ) : null}
+            <h1 className="text-xl font-semibold mt-4 pb-[11px] leading-6">
               {post?.title ?? cachedPost.title}
             </h1>
             <EditorOutput content={post?.content ?? cachedPost.content} />

@@ -7,6 +7,8 @@ export const PostValidator = z.object({
     .max(300, { message: "Title must be less then 300 characters" }),
   communityId: z.string(),
   content: z.any(),
+  badgeTitle: z.string().optional(),
+  badgeColor: z.string().optional(),
 })
 
 export const DeletePostValidator = z.object({

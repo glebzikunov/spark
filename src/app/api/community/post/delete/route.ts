@@ -15,11 +15,23 @@ export async function PATCH(req: Request) {
       return new Response("Unauthorized", { status: 401 })
     }
 
-    await db.post.delete({
+    const post = await db.post.findFirst({
       where: {
         id: postId,
       },
     })
+
+    if (post?.authorId === session.user.id) {
+      await db.post.delete({
+        where: {
+          id: postId,
+        },
+      })
+    } else {
+      return new Response("Access denied. You are not post author.", {
+        status: 403,
+      })
+    }
 
     return new Response("OK")
   } catch (error) {
@@ -27,7 +39,7 @@ export async function PATCH(req: Request) {
       return new Response("Invalid request data passed", { status: 422 })
     }
 
-    return new Response("Could not register your vote. Try again later.", {
+    return new Response("Could not delete your post. Try again later.", {
       status: 500,
     })
   }

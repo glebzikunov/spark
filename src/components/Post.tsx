@@ -68,8 +68,17 @@ const Post = ({
             </div>
           </div>
 
+          {post.badgeColor !== "none" ? (
+            <p
+              style={{ backgroundColor: post.badgeColor || "" }}
+              className="mt-4 text-sm px-2 w-fit h-fit text-white rounded-full"
+            >
+              {post.badgeTitle}
+            </p>
+          ) : null}
+
           <a href={`/c/${communityName}/post/${post.id}`}>
-            <h1 className="text-xl font-semibold pt-4 pb-[11px] leading-6">
+            <h1 className="text-xl font-semibold mt-4 pb-[11px] leading-6">
               {post.title}
             </h1>
           </a>

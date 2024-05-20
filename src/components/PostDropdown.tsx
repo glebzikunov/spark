@@ -113,26 +113,29 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
           <Share2 className="h-5 w-5 sm:mr-2" fill="true" />
           <span className="hidden sm:block font-medium">Share</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className="flex cursor-pointer"
-          onClick={(event) => {
-            event.preventDefault()
-            if (!session) router.push("/sign-in")
-            bookmarkPost({ postId })
-          }}
-        >
-          {isBookmarking ? (
-            <>
-              <Loader2 className="h-5 w-5 animate-spin sm:mr-2" />
-              <span className="hidden sm:block font-medium">Save</span>
-            </>
-          ) : (
-            <>
-              <Bookmark className="h-5 w-5 sm:mr-2" />
-              <span className="hidden sm:block font-medium">Save</span>
-            </>
-          )}
-        </DropdownMenuItem>
+        {session?.user.id && (
+          <DropdownMenuItem
+            className="flex cursor-pointer"
+            onClick={(event) => {
+              event.preventDefault()
+              if (!session) router.push("/sign-in")
+              bookmarkPost({ postId })
+            }}
+          >
+            {isBookmarking ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin sm:mr-2" />
+                <span className="hidden sm:block font-medium">Save</span>
+              </>
+            ) : (
+              <>
+                <Bookmark className="h-5 w-5 sm:mr-2" />
+                <span className="hidden sm:block font-medium">Save</span>
+              </>
+            )}
+          </DropdownMenuItem>
+        )}
+
         {session?.user.id === authorId ? (
           <DropdownMenuItem
             onClick={(event) => {

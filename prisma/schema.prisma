@@ -113,13 +113,14 @@ model Post {
   Bookmark Bookmark[]
   comments Comment[]
   votes Vote[]
-  badgeId String?
+  badgeTitle String?
+  badgeColor String?
 }
 
 model Bookmark {
   user   User @relation(fields: [userId], references: [id])
   userId String
-  post   Post @relation(fields: [postId], references: [id])
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
 
   @@id([userId, postId])
@@ -131,7 +132,7 @@ model Comment {
   createdAt DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])
   authorId String
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
 
   replyToId String?

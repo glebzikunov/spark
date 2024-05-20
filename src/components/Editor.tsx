@@ -1,5 +1,16 @@
 "use client"
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import TextareaAutosize from "react-textarea-autosize"
 import { useForm } from "react-hook-form"
 import { PostCreationRequest, PostValidator } from "@/lib/validators/post"
@@ -12,12 +23,33 @@ import { useMutation } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
 import { usePathname, useRouter } from "next/navigation"
 import { useCustomToast } from "@/hooks/use-custom.toast"
+import { Button } from "./ui/button"
 
-interface EditorProps {
+interface Badge {
+  id: string
+  color: string
+  title: string
   communityId: string
 }
 
-const Editor = ({ communityId }: EditorProps) => {
+interface EditorProps {
+  communityId: string
+  badges?: Badge[]
+}
+
+const Editor = ({ communityId, badges }: EditorProps) => {
+  const [selectedBadge, setSelectedBadge] = useState<Badge>({
+    id: "none",
+    color: "none",
+    title: "none",
+    communityId: "none",
+  })
+  const [badge, setBadge] = useState<Badge>(selectedBadge)
+
+  const handleBadgeChange = (badge: Badge) => {
+    setSelectedBadge(badge)
+  }
+
   const {
     register,
     handleSubmit,
@@ -134,11 +166,15 @@ const Editor = ({ communityId }: EditorProps) => {
       title,
       content,
       communityId,
+      badgeTitle,
+      badgeColor,
     }: PostCreationRequest) => {
       const payload: PostCreationRequest = {
         communityId,
         title,
         content,
+        badgeTitle,
+        badgeColor,
       }
       const { data } = await axios.post("/api/community/post/create", payload)
 
@@ -181,6 +217,8 @@ const Editor = ({ communityId }: EditorProps) => {
       title: data.title,
       content: blocks,
       communityId,
+      badgeTitle: badge.title,
+      badgeColor: badge.color,
     }
 
     createPost(payload)
@@ -193,29 +231,104 @@ const Editor = ({ communityId }: EditorProps) => {
   const { ref: titleRef, ...rest } = register("title")
 
   return (
-    <div className="w-full p-4 bg-[#f9fafa] dark:bg-[#262626] rounded-lg border border-border dark:border-[#313131]">
-      <form
-        id="community-post-form"
-        className="w-fit"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="prose prose-stone dark:prose-invert">
-          <TextareaAutosize
-            ref={(e) => {
-              titleRef(e)
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger className="transition rounded-lg hover:bg-[#eaedef] dark:hover:bg-[#303030] border border-border dark:border-[#ffffff33] px-4 py-2">
+          Add Badge
+        </AlertDialogTrigger>
+        <AlertDialogContent className="max-h-[350px] overflow-auto bg-background dark:bg-[#1F1F1F] border border-border dark:border-[#ffffff33]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Add community badge</AlertDialogTitle>
+            <AlertDialogDescription>
+              Choose badge depending on your content.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {badges.length > 0 ? (
+            <ul className="flex flex-col gap-2">
+              <li>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="badge"
+                    value="none"
+                    checked={selectedBadge.id === "none"}
+                    onChange={() =>
+                      handleBadgeChange({
+                        id: "none",
+                        title: "none",
+                        color: "none",
+                        communityId: "none",
+                      })
+                    }
+                  />
+                  No badge
+                </label>
+              </li>
+              {badges?.map((badge, index) => (
+                <li key={index}>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="badge"
+                      value={badge.id}
+                      checked={selectedBadge.id === badge.id}
+                      onChange={() => handleBadgeChange(badge)}
+                    />
+                    <span
+                      style={{ backgroundColor: badge.color }}
+                      className="px-4 py-1 h-fit text-white rounded-full"
+                    >
+                      {badge.title}
+                    </span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => {
+                handleBadgeChange({
+                  id: "none",
+                  title: "none",
+                  color: "none",
+                  communityId: "none",
+                })
+                setBadge(selectedBadge)
+              }}
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => setBadge(selectedBadge)}>
+              <Button>Add</Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <div className="w-full p-4 bg-[#f9fafa] dark:bg-[#262626] rounded-lg border border-border dark:border-[#313131]">
+        <form
+          id="community-post-form"
+          className="max-w-lg"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="prose prose-stone dark:prose-invert">
+            <TextareaAutosize
+              ref={(e) => {
+                titleRef(e)
 
-              // @ts-ignore
-              _titleRef.current = e
-            }}
-            {...rest}
-            placeholder="Title"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-3xl font-bold focus:outline-none"
-          />
+                // @ts-ignore
+                _titleRef.current = e
+              }}
+              {...rest}
+              placeholder="Title"
+              className="w-full resize-none appearance-none overflow-hidden bg-transparent text-3xl font-bold focus:outline-none"
+            />
 
-          <div id="editor" className="min-h-[300px]" />
-        </div>
-      </form>
-    </div>
+            <div id="editor" className="min-h-[300px]" />
+          </div>
+        </form>
+      </div>
+    </>
   )
 }
 

@@ -12,7 +12,8 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json()
-    const { communityId, title, content } = PostValidator.parse(body)
+    const { communityId, title, content, badgeTitle, badgeColor } =
+      PostValidator.parse(body)
 
     const subscriptionExists = await db.subscribtion.findFirst({
       where: {
@@ -33,6 +34,8 @@ export async function POST(req: Request) {
         content,
         authorId: session.user.id,
         communityId,
+        badgeTitle,
+        badgeColor,
       },
     })
 
