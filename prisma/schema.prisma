@@ -46,6 +46,7 @@ model User {
   CreatedCommunities Community[] @relation("CreatedBy")
 
   username String? @unique
+  stripe_customer_id String?
 
   image    String?
   accounts Account[]

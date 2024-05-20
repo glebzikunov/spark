@@ -53,6 +53,9 @@ const DropdownNav = ({ user, username }: DropdownNavProps) => {
         <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/settings">Settings</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" asChild>
+          <Link href="/premium">Premium</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem
           onSelect={(event) => {
             event.preventDefault()
