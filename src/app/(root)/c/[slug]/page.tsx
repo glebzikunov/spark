@@ -19,8 +19,8 @@ interface PageProps {
 
 const Page = async ({ params }: PageProps) => {
   const { slug } = params
-  const session = await getAuthSession()
 
+  const session = await getAuthSession()
   const hasSub = await hasSubscription()
 
   const community = await db.community.findFirst({
@@ -66,7 +66,7 @@ const Page = async ({ params }: PageProps) => {
     return notFound()
   }
 
-  if (community?.isPremium && !hasSub) {
+  if ((community?.isPremium && !hasSub) || (!session && community?.isPremium)) {
     redirect("/")
   }
 
