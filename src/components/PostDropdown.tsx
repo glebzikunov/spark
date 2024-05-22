@@ -7,7 +7,14 @@ import {
   DropdownMenuTrigger,
   DropdownMenuItem,
 } from "./ui/dropdown-menu"
-import { Bookmark, Ellipsis, Loader2, Share2, Trash2 } from "lucide-react"
+import {
+  Bookmark,
+  Ellipsis,
+  Loader2,
+  Pencil,
+  Share2,
+  Trash2,
+} from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
@@ -110,7 +117,7 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
             copyPostUrl()
           }}
         >
-          <Share2 className="h-5 w-5 sm:mr-2" fill="true" />
+          <Share2 className="h-5 w-5 sm:mr-2" />
           <span className="hidden sm:block font-medium">Share</span>
         </DropdownMenuItem>
         {session?.user.id && (
@@ -137,26 +144,39 @@ const PostDropdown = ({ communityName, authorId, postId }: PostDropdown) => {
         )}
 
         {session?.user.id === authorId ? (
-          <DropdownMenuItem
-            onClick={(event) => {
-              event.preventDefault()
-              if (!session) router.push("/sign-in")
-              deletePost({ postId })
-            }}
-            className="flex cursor-pointer"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="h-5 w-5 animate-spin sm:mr-2" />
-                <span className="hidden sm:block">Delete</span>
-              </>
-            ) : (
-              <>
-                <Trash2 className="h-5 w-5 sm:mr-2" />
-                <span className="hidden sm:block">Delete</span>
-              </>
-            )}
-          </DropdownMenuItem>
+          <>
+            <DropdownMenuItem
+              onClick={(event) => {
+                event.preventDefault()
+                if (!session) router.push("/sign-in")
+                router.push(`c/${communityName}/post/edit/${postId}`)
+              }}
+              className="flex cursor-pointer"
+            >
+              <Pencil className="h-5 w-5 sm:mr-2" />
+              <span className="hidden sm:block">Edit</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={(event) => {
+                event.preventDefault()
+                if (!session) router.push("/sign-in")
+                deletePost({ postId })
+              }}
+              className="flex cursor-pointer"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin sm:mr-2" />
+                  <span className="hidden sm:block">Delete</span>
+                </>
+              ) : (
+                <>
+                  <Trash2 className="h-5 w-5 sm:mr-2" />
+                  <span className="hidden sm:block">Delete</span>
+                </>
+              )}
+            </DropdownMenuItem>
+          </>
         ) : null}
       </DropdownMenuContent>
     </DropdownMenu>

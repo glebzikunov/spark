@@ -11,6 +11,11 @@ export const PostValidator = z.object({
   badgeColor: z.string().optional(),
 })
 
+export const EditPostValidator = z.object({
+  postId: z.string(),
+  content: z.any(),
+})
+
 export const DeletePostValidator = z.object({
   postId: z.string(),
 })
@@ -20,5 +25,6 @@ export const BookmarkPostValidator = z.object({
 })
 
 export type PostCreationRequest = z.infer<typeof PostValidator>
+export type PostEditingRequest = z.infer<typeof EditPostValidator>
 export type PostDeletionRequest = z.infer<typeof DeletePostValidator>
 export type BookmarkPostRequest = z.infer<typeof BookmarkPostValidator>
