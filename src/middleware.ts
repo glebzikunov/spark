@@ -14,5 +14,6 @@ export const config = {
     "/c/create",
     "/c",
     "/premium",
+    "/bookmarks",
   ],
 }
