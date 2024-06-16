@@ -31,6 +31,7 @@ const SubscribeLeaveToggle = ({
       }
 
       const data = await axios.post("/api/community/subscribe", payload)
+      //@ts-ignore
       return data as string
     },
     onError: (error) => {
@@ -65,6 +66,7 @@ const SubscribeLeaveToggle = ({
       }
 
       const data = await axios.post("/api/community/unsubscribe", payload)
+      //@ts-ignore
       return data as string
     },
     onError: (error) => {
