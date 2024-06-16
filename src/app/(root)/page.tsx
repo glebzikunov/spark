@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button"
 import { getAuthSession } from "@/lib/auth"
 import Link from "next/link"
 
-export const dynamic = "force-dynamic"
-export const fetchCache = "force-no-store"
+// export const dynamic = "force-dynamic"
+// export const fetchCache = "force-no-store"
 
 export default async function Home() {
   const session = await getAuthSession()
