@@ -94,6 +94,7 @@ const Page = async ({ params }: PageProps) => {
             </div>
             {communityPost?.badgeColor !== "none" ? (
               <p
+                //@ts-ignore
                 style={{ backgroundColor: communityPost.badgeColor || "" }}
                 className="mt-4 text-sm px-2 w-fit h-fit text-white rounded-full"
               >
