@@ -55,7 +55,10 @@ export default async function RootLayout({
           </p>
           {createdCommunities.length > 0 ? (
             createdCommunities.map((community) => (
-              <div className="flex justify-between gap-x-4 py-2">
+              <div
+                key={community.id}
+                className="flex justify-between gap-x-4 py-2"
+              >
                 <div className="flex items-center gap-2">
                   {community.image ? (
                     <UserAvatar

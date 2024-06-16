@@ -22,7 +22,7 @@ export default async function Home() {
 
           <div className="-my-3 divide-y divide-border px-3 py-4 text-sm leading-6">
             <div className="flex justify-between gap-x-4 py-3">
-              <p className="">Didn't find your favorite community?</p>
+              <p className="">Didn&apos;t find your favorite community?</p>
             </div>
 
             <Button className="w-full mb-3" asChild>

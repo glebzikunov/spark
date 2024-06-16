@@ -40,7 +40,7 @@ const page = async () => {
       <section className="mt-5 flex w-full flex-col gap-4">
         {bookmarkedPosts.length === 0 ? (
           <p className="text-[14px] text-[#576f76] dark:text-[#838383]">
-            You didn't save any post yet.
+            You didn&apos;t save any post yet.
           </p>
         ) : (
           <>

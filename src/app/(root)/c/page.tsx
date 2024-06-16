@@ -40,7 +40,7 @@ const page = async () => {
       <section className="mt-5 flex flex-wrap gap-4">
         {followedCommunities.length === 0 ? (
           <p className="text-[14px] text-[#576f76] dark:text-[#838383]">
-            You didn't join any community.
+            You didn&apos;t join any community.
           </p>
         ) : (
           <>

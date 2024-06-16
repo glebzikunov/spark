@@ -104,7 +104,7 @@ const CommunityBadgesForm = ({ id, badges }: CommunityBadgesFormProps) => {
       <CardFooter className="flex items-start flex-col gap-2">
         {badges.length === 0 ? (
           <p className="text-[14px] text-[#576f76] dark:text-[#838383]">
-            You didn't create any badge.
+            You didn&apos;t create any badge.
           </p>
         ) : (
           <>

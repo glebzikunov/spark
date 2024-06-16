@@ -120,7 +120,7 @@ const Page = () => {
         <div className="flex flex-col">
           <p className="text-lg font-medium">Name</p>
           <p className="text-xs text-[#576f76] dark:text-[#838383] pb-2">
-            Choose wisely. Once you pick a name, it can't be changed.
+            Choose wisely. Once you pick a name, it can&apos;t be changed.
           </p>
           <div className="relative">
             <p className="absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-[#576f76] dark:text-[#838383]">
