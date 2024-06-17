@@ -60,10 +60,12 @@ const EditCommunity = async ({ params }: EditCommunityProps) => {
       </h1>
       <div className="mt-5">
         <EditCommunityForm
+          //@ts-ignore
           isModerator={currentUserSubscription?.isModerator}
           id={community?.id || ""}
           communityImage={community?.image}
           description={community?.description || `${community?.name} community`}
+          //@ts-ignore
           badges={community?.badges}
         />
       </div>

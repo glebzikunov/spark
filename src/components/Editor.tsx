@@ -243,48 +243,51 @@ const Editor = ({ communityId, badges }: EditorProps) => {
               Choose badge depending on your content.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          {badges.length > 0 ? (
-            <ul className="flex flex-col gap-2">
-              <li>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="badge"
-                    value="none"
-                    checked={selectedBadge.id === "none"}
-                    onChange={() =>
-                      handleBadgeChange({
-                        id: "none",
-                        title: "none",
-                        color: "none",
-                        communityId: "none",
-                      })
-                    }
-                  />
-                  No badge
-                </label>
-              </li>
-              {badges?.map((badge, index) => (
-                <li key={index}>
+          {
+            //@ts-ignore
+            badges.length > 0 ? (
+              <ul className="flex flex-col gap-2">
+                <li>
                   <label className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="badge"
-                      value={badge.id}
-                      checked={selectedBadge.id === badge.id}
-                      onChange={() => handleBadgeChange(badge)}
+                      value="none"
+                      checked={selectedBadge.id === "none"}
+                      onChange={() =>
+                        handleBadgeChange({
+                          id: "none",
+                          title: "none",
+                          color: "none",
+                          communityId: "none",
+                        })
+                      }
                     />
-                    <span
-                      style={{ backgroundColor: badge.color }}
-                      className="px-4 py-1 h-fit text-white rounded-full"
-                    >
-                      {badge.title}
-                    </span>
+                    No badge
                   </label>
                 </li>
-              ))}
-            </ul>
-          ) : null}
+                {badges?.map((badge, index) => (
+                  <li key={index}>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="badge"
+                        value={badge.id}
+                        checked={selectedBadge.id === badge.id}
+                        onChange={() => handleBadgeChange(badge)}
+                      />
+                      <span
+                        style={{ backgroundColor: badge.color }}
+                        className="px-4 py-1 h-fit text-white rounded-full"
+                      >
+                        {badge.title}
+                      </span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            ) : null
+          }
           <AlertDialogFooter>
             <AlertDialogCancel
               onClick={() => {

@@ -45,6 +45,7 @@ const page = async () => {
         ) : (
           <>
             {followedCommunities.map(({ community, communityId }) => (
+              //@ts-expect-error Server Component
               <MiniCommunityCard
                 key={communityId}
                 id={communityId}
